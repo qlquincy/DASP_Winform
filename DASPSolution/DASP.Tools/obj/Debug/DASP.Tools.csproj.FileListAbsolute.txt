@@ -1,0 +1,5 @@
+E:\KaizeProject\DASPSolution\DASP.Tools\bin\Debug\DASP.Tools.dll
+E:\KaizeProject\DASPSolution\DASP.Tools\bin\Debug\DASP.Tools.pdb
+E:\KaizeProject\DASPSolution\DASP.Tools\obj\Debug\ResolveAssemblyReference.cache
+E:\KaizeProject\DASPSolution\DASP.Tools\obj\Debug\DASP.Tools.dll
+E:\KaizeProject\DASPSolution\DASP.Tools\obj\Debug\DASP.Tools.pdb

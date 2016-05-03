@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns='http://www.springframework.net'>
+
+  <object id="UserDao" type="DASP.DataAccess.Dao.TBUserDao, DASP.DataAccess">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+
+  <object id="RoleDao" type="DASP.DataAccess.Dao.TBRoleDao, DASP.DataAccess">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+
+  <object id="ProjectDao" type="DASP.DataAccess.Dao.TBProjectDao, DASP.DataAccess">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+
+  <object id="TunnelDao" type="DASP.DataAccess.Dao.TBTunnelDao, DASP.DataAccess">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+
+  <object id="FanPositionDao" type="DASP.DataAccess.Dao.TBFanPositionDao, DASP.DataAccess">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+
+  <object id="TestDataDao" type="DASP.DataAccess.Dao.TBTestDataDao, DASP.DataAccess">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+
+  <object id="TestParameterDao" type="DASP.DataAccess.Dao.TBTestParameterDao, DASP.DataAccess">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+
+  <object id="SysLogDao" type="DASP.DataAccess.Dao.TBSysLogDao, DASP.DataAccess">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+
+  <object id="SysLogTypeDao" type="DASP.DataAccess.Dao.TBSysLogTypeDao, DASP.DataAccess">
+    <property name="HibernateTemplate" ref="HibernateTemplate"/>
+  </object>
+
+</objects>

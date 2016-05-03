@@ -1,0 +1,9 @@
+E:\KaizeProject\DASPSolution\DASP.ZControls\bin\Debug\DASP.ZControls.dll
+E:\KaizeProject\DASPSolution\DASP.ZControls\bin\Debug\DASP.ZControls.pdb
+E:\KaizeProject\DASPSolution\DASP.ZControls\obj\Debug\ResolveAssemblyReference.cache
+E:\KaizeProject\DASPSolution\DASP.ZControls\obj\Debug\DASP.ZControls.ZMessageBox.resources
+E:\KaizeProject\DASPSolution\DASP.ZControls\obj\Debug\DASP.ZControls.FormEx.resources
+E:\KaizeProject\DASPSolution\DASP.ZControls\obj\Debug\GenerateResource.read.1.tlog
+E:\KaizeProject\DASPSolution\DASP.ZControls\obj\Debug\GenerateResource.write.1.tlog
+E:\KaizeProject\DASPSolution\DASP.ZControls\obj\Debug\DASP.ZControls.dll
+E:\KaizeProject\DASPSolution\DASP.ZControls\obj\Debug\DASP.ZControls.pdb

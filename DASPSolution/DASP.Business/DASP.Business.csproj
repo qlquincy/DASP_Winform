@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9564EF01-9BBC-4259-9A55-001FC9806A8A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DASP.Business</RootNamespace>
+    <AssemblyName>DASP.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\Common\fluentnhibernate\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IManager\AbstractManager.cs" />
+    <Compile Include="IManager\IManagerBase.cs" />
+    <Compile Include="IManager\ITBFanPositionManager.cs" />
+    <Compile Include="IManager\ITBProjectManager.cs" />
+    <Compile Include="IManager\ITBRoleManager.cs" />
+    <Compile Include="IManager\ITBSysLogManager.cs" />
+    <Compile Include="IManager\ITBSysLogTypeManager.cs" />
+    <Compile Include="IManager\ITBTestDataManager.cs" />
+    <Compile Include="IManager\ITBTestParameterManager.cs" />
+    <Compile Include="IManager\ITBTunnelManager.cs" />
+    <Compile Include="IManager\ITBUserManager.cs" />
+    <Compile Include="Manager\TBFanPositionManager.cs" />
+    <Compile Include="Manager\TBProjectManager.cs" />
+    <Compile Include="Manager\TBRoleManager.cs" />
+    <Compile Include="Manager\TBSysLogManager.cs" />
+    <Compile Include="Manager\TBSysLogTypeManager.cs" />
+    <Compile Include="Manager\TBTestDataManager.cs" />
+    <Compile Include="Manager\TBTestParameterManager.cs" />
+    <Compile Include="Manager\TBTunnelManager.cs" />
+    <Compile Include="Manager\TBUserManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Config\Business.xml" />
+    <EmbeddedResource Include="Config\BusinessBase.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DASP.DataAccess\DASP.DataAccess.csproj">
+      <Project>{1001E00D-B861-4E70-B798-F9136466BA98}</Project>
+      <Name>DASP.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DASP.Domain\DASP.Domain.csproj">
+      <Project>{7D4D8DA9-6902-4F0C-8726-6B376757EB50}</Project>
+      <Name>DASP.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

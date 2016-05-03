@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  
+  <object id="UserManager" type="DASP.Business.Manager.TBUserManager,DASP.Business">
+    <property name="Dao" ref="UserDao"/>
+  </object>
+
+  <object id="UserManagerTrans" parent="BaseTransactionManager">
+    <property name="Target" ref="UserManager"/>
+  </object>
+
+  <object id="RoleManager" type="DASP.Business.Manager.TBRoleManager,DASP.Business">
+    <property name="Dao" ref="RoleDao"/>
+  </object>
+
+  <object id="RoleManagerTrans" parent="BaseTransactionManager">
+    <property name="Target" ref="RoleManager"/>
+  </object>
+
+  <object id="ProjectManager" type="DASP.Business.Manager.TBProjectManager,DASP.Business">
+    <property name="Dao" ref="ProjectDao"/>
+  </object>
+
+  <object id="ProjectManagerTrans" parent="BaseTransactionManager">
+    <property name="Target" ref="ProjectManager"/>
+  </object>
+
+  <object id="TunnelManager" type="DASP.Business.Manager.TBTunnelManager,DASP.Business">
+    <property name="Dao" ref="TunnelDao"/>
+  </object>
+
+  <object id="TunnelManagerTrans" parent="BaseTransactionManager">
+    <property name="Target" ref="TunnelManager"/>
+  </object>
+
+  <object id="FanPositionManager" type="DASP.Business.Manager.TBFanPositionManager,DASP.Business">
+    <property name="Dao" ref="FanPositionDao"/>
+  </object>
+
+  <object id="FanPositionManagerTrans" parent="BaseTransactionManager">
+    <property name="Target" ref="FanPositionManager"/>
+  </object>
+
+  <object id="TestDataManager" type="DASP.Business.Manager.TBTestDataManager,DASP.Business">
+    <property name="Dao" ref="TestDataDao"/>
+  </object>
+
+  <object id="TestDataManagerTrans" parent="BaseTransactionManager">
+    <property name="Target" ref="TestDataManager"/>
+  </object>
+
+  <object id="TestParameterManager" type="DASP.Business.Manager.TBTestParameterManager,DASP.Business">
+    <property name="Dao" ref="TestParameterDao"/>
+  </object>
+
+  <object id="TestParameterManagerTrans" parent="BaseTransactionManager">
+    <property name="Target" ref="TestParameterManager"/>
+  </object>
+
+  <object id="SysLogTypeManager" type="DASP.Business.Manager.TBSysLogTypeManager,DASP.Business">
+    <property name="Dao" ref="SysLogTypeDao"/>
+  </object>
+  
+  <object id="SysLogTypeManagerTrans" parent="BaseTransactionManager">
+    <property name="Target" ref="SysLogTypeManager"/>
+  </object>
+
+  <object id="SysLogManager" type="DASP.Business.Manager.TBSysLogManager,DASP.Business">
+    <property name="Dao" ref="SysLogDao"/>
+  </object>
+  
+  <object id="SysLogManagerTrans" parent="BaseTransactionManager">
+    <property name="Target" ref="SysLogManager"/>
+  </object>
+
+</objects>

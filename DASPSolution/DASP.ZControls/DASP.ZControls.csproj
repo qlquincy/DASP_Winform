@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3E4CA8B5-22EF-43E7-ABE2-7AFCE18B327A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DASP.ZControls</RootNamespace>
+    <AssemblyName>DASP.ZControls</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Colors\ColorTable.cs" />
+    <Compile Include="ControlEx\Button\ZButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlEx\CheckBox\ZCheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlEx\GlassButton\ZGlassButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlEx\MessageBox\ZMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ControlEx\MessageBox\ZMessageBoxButtons.cs" />
+    <Compile Include="ControlEx\MessageBox\ZMessageBoxIcon.cs" />
+    <Compile Include="ControlEx\RadioButton\ZRadioButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlEx\TextBox\ZMultiTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlEx\TextBox\ZTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Enums\ClassStyle.cs" />
+    <Compile Include="Enums\MouseOperate.cs" />
+    <Compile Include="Enums\ControlState.cs" />
+    <Compile Include="Enums\SystemButtonState.cs" />
+    <Compile Include="Enums\WindowStyle.cs" />
+    <Compile Include="Enums\WindowStyleEx.cs" />
+    <Compile Include="FormEx\FormBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEx\FormEx.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEx\SystemButton.cs" />
+    <Compile Include="FormEx\SystemButtonManager.cs" />
+    <Compile Include="Methods\RenderHelper.cs" />
+    <Compile Include="Methods\Win32.cs" />
+    <Compile Include="ZImageButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ZLoadingPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RenderControlUtils.cs" />
+    <Compile Include="ZDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ZLabelControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FormEx\Res\fringe_bkg.png" />
+    <EmbeddedResource Include="FormEx\Res\SystemButtons\close_down.png" />
+    <EmbeddedResource Include="FormEx\Res\SystemButtons\close_highlight.png" />
+    <EmbeddedResource Include="FormEx\Res\SystemButtons\close_normal.png" />
+    <EmbeddedResource Include="FormEx\Res\SystemButtons\max_down.png" />
+    <EmbeddedResource Include="FormEx\Res\SystemButtons\max_highlight.png" />
+    <EmbeddedResource Include="FormEx\Res\SystemButtons\max_normal.png" />
+    <EmbeddedResource Include="FormEx\Res\SystemButtons\min_down.png" />
+    <EmbeddedResource Include="FormEx\Res\SystemButtons\min_highlight.png" />
+    <EmbeddedResource Include="FormEx\Res\SystemButtons\min_normal.png" />
+    <EmbeddedResource Include="FormEx\Res\SystemButtons\restore_down.png" />
+    <EmbeddedResource Include="FormEx\Res\SystemButtons\restore_highlight.png" />
+    <EmbeddedResource Include="FormEx\Res\SystemButtons\restore_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ControlEx\MessageBox\ZMessageBox.resx">
+      <DependentUpon>ZMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormEx\FormEx.resx">
+      <DependentUpon>FormEx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\loading.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ControlEx\Button\Image\btn_down.png" />
+    <EmbeddedResource Include="ControlEx\Button\Image\btn_focus.png" />
+    <EmbeddedResource Include="ControlEx\Button\Image\btn_highlight.png" />
+    <EmbeddedResource Include="ControlEx\Button\Image\btn_normal.png" />
+    <EmbeddedResource Include="ControlEx\CheckBox\Image\check.png" />
+    <EmbeddedResource Include="ControlEx\GlassButton\Image\glassbtn_down.png" />
+    <EmbeddedResource Include="ControlEx\GlassButton\Image\glassbtn_hot.png" />
+    <EmbeddedResource Include="ControlEx\MessageBox\Icons\messagebox_error.png" />
+    <EmbeddedResource Include="ControlEx\MessageBox\Icons\messagebox_infor.png" />
+    <EmbeddedResource Include="ControlEx\MessageBox\Icons\messagebox_ok.png" />
+    <EmbeddedResource Include="ControlEx\MessageBox\Icons\messagebox_question.png" />
+    <EmbeddedResource Include="ControlEx\MessageBox\Icons\messagebox_warning.png" />
+    <EmbeddedResource Include="ControlEx\RadioButton\Image\dot.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
