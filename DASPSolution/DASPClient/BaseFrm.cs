@@ -17,7 +17,7 @@ namespace DASPClient
             :base()
         {
             InitializeComponent();
-            this.Icon = Icon.FromHandle(((Bitmap)ResourceDynamicReaderUtils.DynamicLoadResourceByResourceName("logo.png")).GetHicon());
+            //this.Icon = Icon.FromHandle(((Bitmap)ResourceDynamicReaderUtils.DynamicLoadResourceByResourceName("logo.png")).GetHicon());
         }
     }
 }
