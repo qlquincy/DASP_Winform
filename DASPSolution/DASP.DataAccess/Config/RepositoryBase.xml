@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns='http://www.springframework.net'>
+
+  <!-- 用以我们在其它的应用程序中，配置数据访问(ADO.NET) -->
+  <object type="Spring.Objects.Factory.Config.PropertyPlaceholderConfigurer, Spring.Core">
+    <property name="ConfigSections" value="databaseSettings"/>
+  </object>
+  
+  <!-- NHibernate初始化的 -->
+  <object id="DbProvider" type="DASP.DataAccess.SQLProvider,DASP.DataAccess">
+    <property name="ConnectionString" value="Data Source=${db.datasource};Initial Catalog=${db.database};User ID=${db.user};Password=${db.password};"/>
+  </object>
+
+
+  <!--<object id="NHibernateSessionFactory" type="Spring.Data.NHibernate.LocalSessionFactoryObject, Spring.Data.NHibernate21">-->
+  <object id="NHibernateSessionFactory" type="DASP.DataAccess.FluentNHibernateLocalSessionFactoryObject, DASP.DataAccess">
+    <property name="DbProvider" ref="DbProvider"/>
+    <!--<property name="MappingAssemblies">-->
+    <property name="FluentNHibernateMappingAssemblies">
+      <list>
+        <value>DASP.Domain</value>
+      </list>
+    </property>
+    <property name="HibernateProperties">
+      <dictionary>
+        <entry key="connection.provider" value="NHibernate.Connection.DriverConnectionProvider"/>
+        <entry key="dialect" value="NHibernate.Dialect.MsSql2005Dialect"/>
+        <entry key="connection.driver_class" value="NHibernate.Driver.SqlClientDriver"/>
+        <entry key="use_outer_join" value="true"/>
+        <entry key="show_sql" value="true"/>
+        <!--自动建表(反向映射)-->
+        <entry key="hbm2ddl.auto" value="update"/>
+        <entry key="adonet.batch_size" value="10"/>
+        <entry key="command_timeout" value="60"/>
+        <!--显式启用二级缓存-->
+        <entry key="cache.use_second_level_cache" value="true"/>
+        <!--启动查询缓存-->
+        <entry key="cache.use_query_cache" value="false"/>
+        <entry key="query.substitutions" value="true 1, false 0, yes 'Y', no 'N"/>
+
+        <entry key="proxyfactory.factory_class" value="NHibernate.ByteCode.LinFu.ProxyFactoryFactory, NHibernate.ByteCode.LinFu"/>
+
+      </dictionary>
+    </property>
+    <property name="ExposeTransactionAwareSessionFactory" value="true" />
+  </object>
+
+  <object id="HibernateTemplate" type="Spring.Data.NHibernate.Generic.HibernateTemplate,Spring.Data.NHibernate21">
+    <property name="SessionFactory" ref="NHibernateSessionFactory" />
+    <property name="TemplateFlushMode" value="Auto" />
+    <property name="CacheQueries" value="true" />
+  </object>
+  
+</objects>

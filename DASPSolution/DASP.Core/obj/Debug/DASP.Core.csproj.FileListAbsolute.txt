@@ -1,0 +1,9 @@
+E:\KaizeProject\DASPSolution\DASP.Core\bin\Debug\DASP.Core.dll
+E:\KaizeProject\DASPSolution\DASP.Core\bin\Debug\DASP.Core.pdb
+E:\KaizeProject\DASPSolution\DASP.Core\obj\Debug\ResolveAssemblyReference.cache
+E:\KaizeProject\DASPSolution\DASP.Core\obj\Debug\DASP.Core.dll
+E:\KaizeProject\DASPSolution\DASP.Core\obj\Debug\DASP.Core.pdb
+D:\GitHub\DASP_Winform\DASPSolution\DASP.Core\bin\Debug\DASP.Core.dll
+D:\GitHub\DASP_Winform\DASPSolution\DASP.Core\bin\Debug\DASP.Core.pdb
+D:\GitHub\DASP_Winform\DASPSolution\DASP.Core\obj\Debug\DASP.Core.dll
+D:\GitHub\DASP_Winform\DASPSolution\DASP.Core\obj\Debug\DASP.Core.pdb
