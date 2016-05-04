@@ -197,8 +197,9 @@ namespace DASPClient.UI.DataModule
                     isUpdate = true;
                 }
 
-                byte[] bufferData = DASP.Tools.SerializerUtils.SerializeFromObject(stsDataList[0].Data);
-                string data = Encoding.Default.GetString(bufferData);
+
+                string data = DASP.Tools.SerializerUtils.SerializeFromString(stsDataList[0].Data);
+        
                 testDataEntity.Data = data;
                 testDataEntity.TestName = txtTestName.Text.Trim();
                 testDataEntity.FileHash = stsDataList[0].FileHash;

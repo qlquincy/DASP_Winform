@@ -31,6 +31,28 @@ namespace DASP.Tools
             }
         }
 
+        /// <summary>
+        /// 序列化对象为字符串
+        /// </summary>
+        /// <param name="targetObject">被序列化的对象</param>
+        /// <returns></returns>
+        public static string SerializeFromString(object targetObject)
+        {
+            byte[] bufferData = SerializeFromObject(targetObject);
+            return Convert.ToBase64String(bufferData);
+        }
+
+        /// <summary>
+        /// 反序列化字符串为对象
+        /// </summary>
+        /// <param name="targetContent">被反序列化的字符串</param>
+        /// <returns></returns>
+        public static object SerializeToObject(string targetContent)
+        {
+            byte[] bufferData = Convert.FromBase64String(targetContent);
+            return SerializeToObject(bufferData);
+        }
+
         #region 反序列化
 
         /// <summary>
