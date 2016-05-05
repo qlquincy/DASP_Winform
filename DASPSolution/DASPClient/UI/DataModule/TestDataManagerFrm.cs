@@ -97,5 +97,10 @@ namespace DASPClient.UI.DataModule
 
             }
         }
+
+        private void ucToolBar_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

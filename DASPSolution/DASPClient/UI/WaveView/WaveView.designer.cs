@@ -30,6 +30,9 @@ namespace Dasp_WaveView
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnview = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtSerialID = new System.Windows.Forms.TextBox();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -41,15 +44,16 @@ namespace Dasp_WaveView
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.mcadLine1 = new Dasp.MCADLine();
-            this.txtSerialID = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnview = new System.Windows.Forms.Button();
+            this.txtOut = new System.Windows.Forms.TextBox();
+            this.button6 = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.button6);
+            this.panel2.Controls.Add(this.txtOut);
             this.panel2.Controls.Add(this.btnview);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.txtSerialID);
@@ -67,6 +71,33 @@ namespace Dasp_WaveView
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(808, 147);
             this.panel2.TabIndex = 1;
+            // 
+            // btnview
+            // 
+            this.btnview.Location = new System.Drawing.Point(640, 12);
+            this.btnview.Name = "btnview";
+            this.btnview.Size = new System.Drawing.Size(76, 32);
+            this.btnview.TabIndex = 36;
+            this.btnview.Text = "波形预览";
+            this.btnview.UseVisualStyleBackColor = true;
+            this.btnview.Click += new System.EventHandler(this.btnview_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 12);
+            this.label1.TabIndex = 35;
+            this.label1.Text = "试验序列号";
+            // 
+            // txtSerialID
+            // 
+            this.txtSerialID.Location = new System.Drawing.Point(81, 15);
+            this.txtSerialID.Name = "txtSerialID";
+            this.txtSerialID.Size = new System.Drawing.Size(233, 21);
+            this.txtSerialID.TabIndex = 34;
+            this.txtSerialID.Text = "f2d72bcb-88b2-4f93-af7a-0b10834848d9";
             // 
             // button5
             // 
@@ -216,32 +247,23 @@ namespace Dasp_WaveView
             this.mcadLine1.YSpace = 0F;
             this.mcadLine1.ZeroL = 400;
             // 
-            // txtSerialID
+            // txtOut
             // 
-            this.txtSerialID.Location = new System.Drawing.Point(81, 15);
-            this.txtSerialID.Name = "txtSerialID";
-            this.txtSerialID.Size = new System.Drawing.Size(233, 21);
-            this.txtSerialID.TabIndex = 34;
-            this.txtSerialID.Text = "f2d72bcb-88b2-4f93-af7a-0b10834848d9";
+            this.txtOut.Location = new System.Drawing.Point(351, 13);
+            this.txtOut.Name = "txtOut";
+            this.txtOut.Size = new System.Drawing.Size(239, 21);
+            this.txtOut.TabIndex = 37;
+            this.txtOut.Text = "84930f04-cd56-4cb7-a609-95ac668746fe";
             // 
-            // label1
+            // button6
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 12);
-            this.label1.TabIndex = 35;
-            this.label1.Text = "试验序列号";
-            // 
-            // btnview
-            // 
-            this.btnview.Location = new System.Drawing.Point(341, 8);
-            this.btnview.Name = "btnview";
-            this.btnview.Size = new System.Drawing.Size(76, 32);
-            this.btnview.TabIndex = 36;
-            this.btnview.Text = "波形预览";
-            this.btnview.UseVisualStyleBackColor = true;
-            this.btnview.Click += new System.EventHandler(this.btnview_Click);
+            this.button6.Location = new System.Drawing.Point(640, 49);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(76, 32);
+            this.button6.TabIndex = 38;
+            this.button6.Text = "波形预览2";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // WaveView
             // 
@@ -279,5 +301,7 @@ namespace Dasp_WaveView
         private System.Windows.Forms.Button btnview;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtSerialID;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.TextBox txtOut;
     }
 }

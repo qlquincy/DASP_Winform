@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DASPClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <ExecutableExtension>.exe</ExecutableExtension>
+    </Reference>
     <Reference Include="NHibernate.ByteCode.LinFu">
       <HintPath>..\Common\spring\NHibernate.ByteCode.LinFu.dll</HintPath>
     </Reference>
@@ -158,6 +161,32 @@
     <Compile Include="UI\DataModule\TunnelManagerFrm.Designer.cs">
       <DependentUpon>TunnelManagerFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\REF\FRFParaSetFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\REF\FRFParaSetFrm.designer.cs">
+      <DependentUpon>FRFParaSetFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\REF\RefFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\REF\RefFrm.designer.cs">
+      <DependentUpon>RefFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\REF\FrfPara.cs" />
+    <Compile Include="UI\Spectrum\SpectrumFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Spectrum\SpectrumFrm.designer.cs">
+      <DependentUpon>SpectrumFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Spectrum\SpectrumPara.cs" />
+    <Compile Include="UI\Spectrum\SpectrumParaFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Spectrum\SpectrumParaFrm.designer.cs">
+      <DependentUpon>SpectrumParaFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\UserModule\ChangePasswordFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -176,6 +205,24 @@
     <Compile Include="UI\UserModule\UserManagerFrm.Designer.cs">
       <DependentUpon>UserManagerFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\WaveView\SpectrumPara.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\WaveView\SpectrumPara.designer.cs">
+      <DependentUpon>SpectrumPara.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\WaveView\WaveView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\WaveView\WaveView.designer.cs">
+      <DependentUpon>WaveView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\MCADLine.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl\VdeoValue.cs" />
+    <Compile Include="UserControl\ViewPartInfo.cs" />
+    <Compile Include="Utility\DaspSDK.cs" />
     <Compile Include="Utility\SpringUtils.cs" />
     <EmbeddedResource Include="LoginFrm.resx">
       <DependentUpon>LoginFrm.cs</DependentUpon>
@@ -226,6 +273,18 @@
     <EmbeddedResource Include="UI\DataModule\TunnelManagerFrm.resx">
       <DependentUpon>TunnelManagerFrm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\REF\FRFParaSetFrm.resx">
+      <DependentUpon>FRFParaSetFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\REF\RefFrm.resx">
+      <DependentUpon>RefFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Spectrum\SpectrumFrm.resx">
+      <DependentUpon>SpectrumFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Spectrum\SpectrumParaFrm.resx">
+      <DependentUpon>SpectrumParaFrm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\UserModule\ChangePasswordFrm.resx">
       <DependentUpon>ChangePasswordFrm.cs</DependentUpon>
     </EmbeddedResource>
@@ -234,6 +293,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserModule\UserManagerFrm.resx">
       <DependentUpon>UserManagerFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WaveView\SpectrumPara.resx">
+      <DependentUpon>SpectrumPara.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WaveView\WaveView.resx">
+      <DependentUpon>WaveView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl\MCADLine.resx">
+      <DependentUpon>MCADLine.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config">
       <SubType>Designer</SubType>
@@ -276,6 +344,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="DaspSaApi.dll" />
+    <Content Include="RC_GrandLocal.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\add.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

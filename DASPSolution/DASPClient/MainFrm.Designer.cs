@@ -100,28 +100,28 @@
             // projectToolStripMenuItem
             // 
             this.projectToolStripMenuItem.Name = "projectToolStripMenuItem";
-            this.projectToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.projectToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.projectToolStripMenuItem.Text = "合同管理";
             this.projectToolStripMenuItem.Click += new System.EventHandler(this.projectToolStripMenuItem_Click);
             // 
             // tunnelToolStripMenuItem
             // 
             this.tunnelToolStripMenuItem.Name = "tunnelToolStripMenuItem";
-            this.tunnelToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.tunnelToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.tunnelToolStripMenuItem.Text = "隧道管理";
             this.tunnelToolStripMenuItem.Click += new System.EventHandler(this.tunnelToolStripMenuItem_Click);
             // 
             // fanPosToolStripMenuItem
             // 
             this.fanPosToolStripMenuItem.Name = "fanPosToolStripMenuItem";
-            this.fanPosToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fanPosToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.fanPosToolStripMenuItem.Text = "风机位置管理";
             this.fanPosToolStripMenuItem.Click += new System.EventHandler(this.fanPosToolStripMenuItem_Click);
             // 
             // dataAToolStripMenuItem
             // 
             this.dataAToolStripMenuItem.Name = "dataAToolStripMenuItem";
-            this.dataAToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dataAToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.dataAToolStripMenuItem.Text = "数据采集";
             this.dataAToolStripMenuItem.Click += new System.EventHandler(this.dataAToolStripMenuItem_Click);
             // 
@@ -130,18 +130,21 @@
             this.timerToolStripMenuItem.Name = "timerToolStripMenuItem";
             this.timerToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
             this.timerToolStripMenuItem.Text = "时域分析";
+            this.timerToolStripMenuItem.Click += new System.EventHandler(this.timerToolStripMenuItem_Click);
             // 
             // saToolStripMenuItem
             // 
             this.saToolStripMenuItem.Name = "saToolStripMenuItem";
             this.saToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
             this.saToolStripMenuItem.Text = "自谱分析";
+            this.saToolStripMenuItem.Click += new System.EventHandler(this.saToolStripMenuItem_Click);
             // 
             // tansiferToolStripMenuItem
             // 
             this.tansiferToolStripMenuItem.Name = "tansiferToolStripMenuItem";
             this.tansiferToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
             this.tansiferToolStripMenuItem.Text = "传递函数";
+            this.tansiferToolStripMenuItem.Click += new System.EventHandler(this.tansiferToolStripMenuItem_Click);
             // 
             // dockPanelContent
             // 
@@ -156,7 +159,7 @@
             tabGradient1.StartColor = System.Drawing.SystemColors.Control;
             tabGradient1.TextColor = System.Drawing.SystemColors.ControlDarkDark;
             autoHideStripSkin1.TabGradient = tabGradient1;
-            autoHideStripSkin1.TextFont = new System.Drawing.Font("Microsoft YaHei", 9F);
+            autoHideStripSkin1.TextFont = new System.Drawing.Font("微软雅黑", 9F);
             dockPanelSkin1.AutoHideStripSkin = autoHideStripSkin1;
             tabGradient2.EndColor = System.Drawing.SystemColors.ControlLightLight;
             tabGradient2.StartColor = System.Drawing.SystemColors.ControlLightLight;
@@ -170,7 +173,7 @@
             tabGradient3.TextColor = System.Drawing.SystemColors.ControlText;
             dockPaneStripGradient1.InactiveTabGradient = tabGradient3;
             dockPaneStripSkin1.DocumentGradient = dockPaneStripGradient1;
-            dockPaneStripSkin1.TextFont = new System.Drawing.Font("Microsoft YaHei", 9F);
+            dockPaneStripSkin1.TextFont = new System.Drawing.Font("微软雅黑", 9F);
             tabGradient4.EndColor = System.Drawing.SystemColors.ActiveCaption;
             tabGradient4.LinearGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
             tabGradient4.StartColor = System.Drawing.SystemColors.GradientActiveCaption;
@@ -252,7 +255,7 @@
             // lblDisplayLoginInfo
             // 
             this.lblDisplayLoginInfo.BackColor = System.Drawing.Color.Transparent;
-            this.lblDisplayLoginInfo.Font = new System.Drawing.Font("Microsoft YaHei", 10F, System.Drawing.FontStyle.Bold);
+            this.lblDisplayLoginInfo.Font = new System.Drawing.Font("微软雅黑", 10F, System.Drawing.FontStyle.Bold);
             this.lblDisplayLoginInfo.ForeColor = System.Drawing.Color.White;
             this.lblDisplayLoginInfo.Location = new System.Drawing.Point(9, 6);
             this.lblDisplayLoginInfo.Name = "lblDisplayLoginInfo";

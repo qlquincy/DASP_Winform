@@ -199,7 +199,7 @@ namespace DASPClient.UI.DataModule
 
 
                 string data = DASP.Tools.SerializerUtils.SerializeFromString(stsDataList[0].Data);
-        
+                List<float> v = DASP.Tools.SerializerUtils.SerializeToObject(data) as List<float>;
                 testDataEntity.Data = data;
                 testDataEntity.TestName = txtTestName.Text.Trim();
                 testDataEntity.FileHash = stsDataList[0].FileHash;

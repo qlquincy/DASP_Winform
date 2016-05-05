@@ -199,5 +199,10 @@ namespace Dasp_WaveView
         {
             DrawWaveFromDB(this.txtSerialID.Text);
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            DrawWaveFromDB(this.txtOut.Text);
+        }
     }
 }
