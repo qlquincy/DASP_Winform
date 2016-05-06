@@ -75,87 +75,16 @@ namespace Dasp_UI
         void Spectrum_Load(object sender, EventArgs e)
         {
             this.mcadLine1.BgColor = Color.Black;
-            this.FftPtNum.SelectedIndex = 2;
-            this.WindowType.SelectedIndex = 0;
-            this.SpectrumType.SelectedIndex = 0;
-            this.AverageType.SelectedIndex = 0;
-            if (fileName2 != null)
+           
+            if (fileName != null)
             {
-                GetWavData2(fileName,fileName2);
+               GetWavData(fileName);
             }
-            else
-            GetWavData(fileName);
+           
+            
         }
-        private void GetWavData2(string Fname,string Fname2)
-        {
-            IList<float>[] waveData = new IList<float>[2];//波形图只有一组绘制数据
-            waveData[0] = new List<float>();  //初始化第一组数据
-            waveData[1] = new List<float>();
-            float gain = 1f;
-            try
-            {
-                long dataLength = 0;
-                //this.txtFilename.Text = Fname;
-                string fn = Fname.Replace(".sts", ".tsp");
-                string[] paras = DaspSDK.Read(fn);
-                if ((paras != null) && (paras.Length == 9))
-                {
-                    this.fCalCv = DaspSDK.ChangeDataToD(paras[7]);
-                    this.CalCv.Text = paras[7];
-                    fWaveSfIn = Convert.ToSingle(paras[0]);
-                    this.WaveSf.Text = paras[0];
-                    gain = Convert.ToSingle(paras[5]);
-                }
-                using (FileStream fs = new FileStream(Fname, FileMode.Open, FileAccess.Read))
-                {
-                    dataLength = fs.Length;
-                    BinaryReader r = new BinaryReader(fs);
-                    for (int i = 0; i < dataLength / 4; i++)
-                    {
-                        waveData[0].Add(r.ReadSingle() / gain / this.fCalCv);
-                    }
-
-                    nWavePtNum = Convert.ToInt32(dataLength / 4);
-                    this.WavePtNum.Text = Convert.ToString(nWavePtNum);
-                }
-            }
-            catch { }
-
-            try
-            {
-                long dataLength = 0;
-                //this.txtFilename.Text = Fname;
-                string fn = Fname2.Replace(".sts", ".tsp");
-                string[] paras = DaspSDK.Read(fn);
-                if ((paras != null) && (paras.Length == 9))
-                {
-                    this.fCalCv = DaspSDK.ChangeDataToD(paras[7]);
-                    this.CalCv.Text = paras[7];
-                    fWaveSfIn = Convert.ToSingle(paras[0]);
-                    this.WaveSf.Text = paras[0];
-                    gain = Convert.ToSingle(paras[5]);
-                }
-                using (FileStream fs = new FileStream(Fname, FileMode.Open, FileAccess.Read))
-                {
-                    dataLength = fs.Length;
-                    BinaryReader r = new BinaryReader(fs);
-                    for (int i = 0; i < dataLength / 4; i++)
-                    {
-                        waveData[1].Add(r.ReadSingle() / gain / this.fCalCv);
-                    }
-
-                    nWavePtNum = Convert.ToInt32(dataLength / 4);
-                    this.WavePtNum.Text = Convert.ToString(nWavePtNum);
-                }
-            }
-            catch { }
-
-            datalsts.Add(waveData);
-            //datalsts.Add(waveData);
-            //datalsts.Add(waveData);
-            this.mcadLine1.drawall = true;
-            this.mcadLine1.SetDrawDataAll(datalsts);
-        }
+       
+     
         /// <summary>
         /// 根据试验标识读试验波形数据
         /// </summary>
@@ -222,154 +151,12 @@ namespace Dasp_UI
 
         }
 
-        private void btnOpenData_Click(object sender, EventArgs e)
-        {
-
-
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "所有Dasp测试文件|*.sts";
-           List<float>  indata = new List<float>();
-            string Fname = null;
-            float gain = 1f;
-
-            openFileDialog.Title = "选择输入文件";
-            if (DialogResult.OK == openFileDialog.ShowDialog())
-            {
-                Fname = openFileDialog.FileName;
-                try
-                {
-                    long dataLength = 0;
-                    //this.txtFilename.Text = Fname;
-                    string fn = Fname.Replace(".sts", ".tsp");
-                    string[] paras = DaspSDK.Read(fn);
-                    if ((paras != null) && (paras.Length == 9))
-                    {
-
-                        gain = Convert.ToSingle(paras[5]);
-                        this.fCalCv = DaspSDK.ChangeDataToD(paras[7]);
-                        this.CalCv.Text = paras[7];
-                        fWaveSfIn = Convert.ToSingle(paras[0]);
-                        this.WaveSf.Text = paras[0];
-                    }
-                    using (FileStream fs = new FileStream(openFileDialog.FileName, FileMode.Open, FileAccess.Read))
-                    {
-                        dataLength = fs.Length;
-                        BinaryReader r = new BinaryReader(fs);
-                        for (int i = 0; i < dataLength / 4; i++)
-                        {
-                            indata.Add(r.ReadSingle());// / gain / cv);
-                        }
-
-                        nWavePtNum = Convert.ToInt32(dataLength / 4);
-                        this.WavePtNum.Text = Convert.ToString(nWavePtNum);
-                    }
-                }
-                catch { }
-            }
-          
-        }
+      
 
         public bool iscalculating { get; set; }
 
-        private void btncmp_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "所有Dasp测试文件|*.sts";
-            List<float> indata = new List<float>();
-            string Fname = null;
-            float gain = 1f;
+       
 
-            openFileDialog.Title = "选择输入文件";
-            if (DialogResult.OK == openFileDialog.ShowDialog())
-            {
-                Fname = openFileDialog.FileName;
-                try
-                {
-                    long dataLength = 0;
-                    //this.txtFilename.Text = Fname;
-                    string fn = Fname.Replace(".sts", ".tsp");
-                    string[] paras = DaspSDK.Read(fn);
-                    if ((paras != null) && (paras.Length == 9))
-                    {
-
-                        gain = Convert.ToSingle(paras[5]);
-                        this.fCalCv = DaspSDK.ChangeDataToD(paras[7]);
-                        this.CalCv.Text = paras[7];
-                        fWaveSfIn = Convert.ToSingle(paras[0]);
-                        this.WaveSf.Text = paras[0];
-                    }
-                    using (FileStream fs = new FileStream(openFileDialog.FileName, FileMode.Open, FileAccess.Read))
-                    {
-                        dataLength = fs.Length;
-                        BinaryReader r = new BinaryReader(fs);
-                        for (int i = 0; i < dataLength / 4; i++)
-                        {
-                            indata.Add(r.ReadSingle());// / gain / cv);
-                        }
-
-                        nWavePtNum = Convert.ToInt32(dataLength / 4);
-                        this.WavePtNum.Text = Convert.ToString(nWavePtNum);
-                    }
-                    SetSecondlstdata(indata);
-                }
-                catch { }
-            }
-        }
-
-        private void SetSecondlstdata(List<float> indata)
-        {
-            int nWaveOffset;
-
-            int nFftPtNum = 1024;
-            int nWindowType;
-
-            float fCalOffset;
-            int nExpPara;
-            int nClearDc = 1;
-            int nSpectrumType;
-            int nAverageType;
-            int nCascadePercent;
-            List<float> SpecData = null;
-
-            iscalculating = false;
-
-
-            nWaveOffset = Convert.ToInt32(WaveOffset.Text);
-            switch (this.FftPtNum.SelectedIndex)
-            {
-                case 0:
-                    nFftPtNum = 256;
-                    break;
-                case 1:
-                    nFftPtNum = 512;
-                    break;
-                case 2:
-                    nFftPtNum = 1024;
-                    break;
-            }
-
-
-            nWindowType = this.WindowType.SelectedIndex;
-
-            fCalOffset = Convert.ToInt32(CalOffset.Value);
-
-            nExpPara = Convert.ToInt32(this.ExpPara.Value);
-
-
-            if (!this.ClearDc.Checked)
-                nClearDc = 0;
-
-
-            nSpectrumType = this.SpectrumType.SelectedIndex;
-            nAverageType = this.AverageType.SelectedIndex; ;
-            nCascadePercent = Convert.ToInt32(this.CascadePercent.Value); ;
-            if (DaspSDK.DaspAutoSpectrum(indata, nWaveOffset, nWavePtNum, nFftPtNum, nWindowType, fCalCv, fWaveSf, fCalOffset, nExpPara, nClearDc, nSpectrumType, nAverageType, nCascadePercent, out SpecData))
-            {
-                iscalculating = true;
-                cmplst[1] = SpecData;
-                //this.mcadLine1.DrawDatalstPara = cmplst;
-               
-            }
-        }
+       
     }
 }
