@@ -35,9 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DASPClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <ExecutableExtension>.exe</ExecutableExtension>
-    </Reference>
     <Reference Include="NHibernate.ByteCode.LinFu">
       <HintPath>..\Common\spring\NHibernate.ByteCode.LinFu.dll</HintPath>
     </Reference>
@@ -78,6 +75,7 @@
     <Compile Include="Common\ObjectPropertyCompare.cs" />
     <Compile Include="Common\PropertyComparer.cs" />
     <Compile Include="Common\SortableBindingList.cs" />
+    <Compile Include="Global\Common.cs" />
     <Compile Include="Global\UserInfoInstance.cs" />
     <Compile Include="LoginFrm.cs">
       <SubType>Form</SubType>
@@ -101,6 +99,7 @@
     </Compile>
     <Compile Include="UI\CommonModule\DataGridViewActionButtonColumn.cs" />
     <Compile Include="UI\CommonModule\DataGridViewDetailButtonColumn.cs" />
+    <Compile Include="Global\NodeData.cs" />
     <Compile Include="UI\CommonModule\PagerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -344,7 +343,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="DaspSaApi.dll" />
+    <Content Include="DaspSaApi.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="RC_GrandLocal.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

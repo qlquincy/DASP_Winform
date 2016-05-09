@@ -42,7 +42,7 @@ namespace Dasp_UI
         int nSpectrumType;
         int nAverageType;
         int nCascadePercent;
-        #endregion 
+        #endregion
         /// <summary>
         /// 图形数据列表
         /// </summary>
@@ -58,7 +58,7 @@ namespace Dasp_UI
             InitializeComponent();
             this.Load += new EventHandler(Spectrum_Load);
         }
-        public SpecTrum(string fname,SpectrumParas para)
+        public SpecTrum(string fname, SpectrumParas para)
         {
             fileName = fname;
             spepara = para;
@@ -75,16 +75,16 @@ namespace Dasp_UI
         void Spectrum_Load(object sender, EventArgs e)
         {
             this.mcadLine1.BgColor = Color.Black;
-           
+
             if (fileName != null)
             {
-               GetWavData(fileName);
+                GetWavData(fileName);
             }
-           
-            
+
+
         }
-       
-     
+
+
         /// <summary>
         /// 根据试验标识读试验波形数据
         /// </summary>
@@ -109,7 +109,7 @@ namespace Dasp_UI
                 //  nWavePtNum = paraentity.
                 for (int i = 0; i < waveData[0].Count; i++)
                 {
-                    waveData[0][i] = waveData[0][i] ;
+                    waveData[0][i] = waveData[0][i];
                 }
                 datalsts.Add(waveData);
                 //datalsts.Add(waveData);
@@ -120,21 +120,21 @@ namespace Dasp_UI
                 this.mcadLine1.Focus();
             }
             catch { }
-           
+
             //datalsts.Add(waveData);
             //datalsts.Add(waveData);
             //this.mcadLine1.drawall = true;
             //this.mcadLine1.SetDrawDataAll( datalsts);
         }
-        
+
         private List<float>[] cmplst = new List<float>[2];
-        private  List<float> GetSprectData(List<float> indata)
-        {  
+        private List<float> GetSprectData(List<float> indata)
+        {
             List<float> SpecData = null;
-            bool rc  = false;
+            bool rc = false;
             rc = DaspSDK.DaspAutoSpectrum(indata, spepara.nWaveOffset, spepara.nWavePtNum, spepara.nFftPtNum, spepara.nWindowType, spepara.fCalCv, spepara.fWaveSf, spepara.fCalOffset, spepara.nExpPara, spepara.nClearDc, spepara.nSpectrumType, spepara.nAverageType, spepara.nCascadePercent, out SpecData);
             if (rc)
-            {              
+            {
             }
             else
             {
@@ -151,12 +151,12 @@ namespace Dasp_UI
 
         }
 
-      
+
 
         public bool iscalculating { get; set; }
 
-       
 
-       
+
+
     }
 }

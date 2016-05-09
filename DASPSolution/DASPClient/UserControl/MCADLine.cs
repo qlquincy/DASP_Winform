@@ -1691,8 +1691,6 @@ namespace Dasp
             }
             if (bm)
             {
-
-
                 if (exd)
                 {
                     if ((OldMouseX >= XSpace + this.lspan) && (OldMouseX <= (this.Width - this.rspan)))

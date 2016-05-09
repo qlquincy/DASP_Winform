@@ -16,7 +16,7 @@ namespace ChartTrialProgram
     {
         private List<float> indata;
         private int nWavePtNum = 1024;
-     
+
         public SpectrumPara()
         {
             InitializeComponent();
@@ -30,11 +30,12 @@ namespace ChartTrialProgram
             this.SpectrumType.SelectedIndex = 0;
             this.AverageType.SelectedIndex = 0;
         }
+
         private List<float>[] cmplst = new List<float>[2];
         private SpectrumParas spe = new SpectrumParas();
         private void btnCal_Click(object sender, EventArgs e)
         {
-           
+
             List<float> SpecData = null;
 
             iscalculating = false;
@@ -65,12 +66,9 @@ namespace ChartTrialProgram
             if (DaspSDK.DaspAutoSpectrum(indata, spe.nWaveOffset, spe.nWavePtNum, spe.nFftPtNum, spe.nWindowType, spe.fCalCv, spe.fWaveSf, spe.fCalOffset, spe.nExpPara, spe.nClearDc, spe.nSpectrumType, spe.nAverageType, spe.nCascadePercent, out SpecData))
             {
                 iscalculating = true;
-              
+
                 cmplst[0] = SpecData;
             }
-
-
-
         }
 
         public float fWaveSfIn { get; set; }
@@ -82,8 +80,6 @@ namespace ChartTrialProgram
 
         private void btnOpenData_Click(object sender, EventArgs e)
         {
-
-
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "所有Dasp测试文件|*.sts";
             indata = new List<float>();
@@ -104,8 +100,8 @@ namespace ChartTrialProgram
                     {
 
                         gain = Convert.ToSingle(paras[5]);
-                        this.CalCv.Text =Convert.ToString( DaspSDK.ChangeDataToD(paras[7]));
-                       // this.CalCv.Text = paras[7];
+                        this.CalCv.Text = Convert.ToString(DaspSDK.ChangeDataToD(paras[7]));
+                        // this.CalCv.Text = paras[7];
                         fWaveSfIn = Convert.ToSingle(paras[0]);
                         this.WaveSf.Text = paras[0];
                     }
@@ -161,7 +157,7 @@ namespace ChartTrialProgram
                     {
 
                         gain = Convert.ToSingle(paras[5]);
-                        this.CalCv.Text = Convert.ToString( DaspSDK.ChangeDataToD(paras[7]));
+                        this.CalCv.Text = Convert.ToString(DaspSDK.ChangeDataToD(paras[7]));
                         this.CalCv.Text = paras[7];
                         fWaveSfIn = Convert.ToSingle(paras[0]);
                         this.WaveSf.Text = paras[0];
@@ -235,8 +231,6 @@ namespace ChartTrialProgram
             {
                 iscalculating = true;
                 cmplst[1] = SpecData;
-               
-               
             }
         }
     }

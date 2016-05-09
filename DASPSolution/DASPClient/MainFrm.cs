@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using DASP.Tools;
-using Dasp_WaveView;
 using Dasp_UI;
 using DASP_UI;
 
@@ -20,6 +19,7 @@ namespace DASPClient
         private UI.DataModule.TunnelManagerFrm tunnelFrm;
         private UI.DataModule.FanPositionManagerFrm fanPosFrm;
         private UI.DataModule.TestDataManagerFrm testDataFrm;
+        private DASPClient.UI.WaveView.WaveView waveView;
 
         private DASP.Domain.Entitys.TBUserEntity currentLoginUser;
 
@@ -135,8 +135,15 @@ namespace DASPClient
         }
         private void timerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            WaveView waveView = new WaveView();
-            waveView.Show(this.dockPanelContent);
+            if (this.dockPanelContent.Contents.Contains(waveView))
+            {
+                waveView.Show(this.dockPanelContent);
+            }
+            else
+            {
+                waveView = new DASPClient.UI.WaveView.WaveView();
+                waveView.Show(this.dockPanelContent);
+            }
         }
 
         private void saToolStripMenuItem_Click(object sender, EventArgs e)

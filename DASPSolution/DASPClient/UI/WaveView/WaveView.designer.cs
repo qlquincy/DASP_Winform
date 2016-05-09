@@ -1,5 +1,5 @@
 ﻿using Dasp;
-namespace Dasp_WaveView
+namespace DASPClient.UI.WaveView
 {
     partial class WaveView
     {
@@ -30,6 +30,8 @@ namespace Dasp_WaveView
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button6 = new System.Windows.Forms.Button();
+            this.txtOut = new System.Windows.Forms.TextBox();
             this.btnview = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtSerialID = new System.Windows.Forms.TextBox();
@@ -41,13 +43,11 @@ namespace Dasp_WaveView
             this.label2 = new System.Windows.Forms.Label();
             this.btnOpenData = new System.Windows.Forms.Button();
             this.pointsperpage = new System.Windows.Forms.ComboBox();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.tableLayPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.treeView = new System.Windows.Forms.TreeView();
             this.mcadLine1 = new Dasp.MCADLine();
-            this.txtOut = new System.Windows.Forms.TextBox();
-            this.button6 = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.tableLayPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -65,12 +65,29 @@ namespace Dasp_WaveView
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.btnOpenData);
             this.panel2.Controls.Add(this.pointsperpage);
-            this.panel2.Controls.Add(this.panel3);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(153, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(808, 147);
+            this.panel2.Size = new System.Drawing.Size(652, 211);
             this.panel2.TabIndex = 1;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(640, 49);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(76, 32);
+            this.button6.TabIndex = 38;
+            this.button6.Text = "波形预览2";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // txtOut
+            // 
+            this.txtOut.Location = new System.Drawing.Point(351, 13);
+            this.txtOut.Name = "txtOut";
+            this.txtOut.Size = new System.Drawing.Size(239, 21);
+            this.txtOut.TabIndex = 37;
+            this.txtOut.Text = "84930f04-cd56-4cb7-a609-95ac668746fe";
             // 
             // btnview
             // 
@@ -97,7 +114,6 @@ namespace Dasp_WaveView
             this.txtSerialID.Name = "txtSerialID";
             this.txtSerialID.Size = new System.Drawing.Size(233, 21);
             this.txtSerialID.TabIndex = 34;
-            this.txtSerialID.Text = "f2d72bcb-88b2-4f93-af7a-0b10834848d9";
             // 
             // button5
             // 
@@ -183,22 +199,31 @@ namespace Dasp_WaveView
             this.pointsperpage.TabIndex = 28;
             this.pointsperpage.SelectedIndexChanged += new System.EventHandler(this.pointsperpage_SelectedIndexChanged);
             // 
-            // panel3
+            // tableLayPanel
             // 
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 104);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(808, 43);
-            this.panel3.TabIndex = 0;
+            this.tableLayPanel.ColumnCount = 2;
+            this.tableLayPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayPanel.Controls.Add(this.mcadLine1, 1, 1);
+            this.tableLayPanel.Controls.Add(this.panel2, 1, 0);
+            this.tableLayPanel.Controls.Add(this.treeView, 0, 0);
+            this.tableLayPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayPanel.Location = new System.Drawing.Point(0, 0);
+            this.tableLayPanel.Name = "tableLayPanel";
+            this.tableLayPanel.RowCount = 2;
+            this.tableLayPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayPanel.Size = new System.Drawing.Size(808, 435);
+            this.tableLayPanel.TabIndex = 2;
             // 
-            // panel1
+            // treeView
             // 
-            this.panel1.Controls.Add(this.mcadLine1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 147);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(808, 109);
-            this.panel1.TabIndex = 2;
+            this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView.Location = new System.Drawing.Point(3, 3);
+            this.treeView.Name = "treeView";
+            this.tableLayPanel.SetRowSpan(this.treeView, 2);
+            this.treeView.Size = new System.Drawing.Size(144, 429);
+            this.treeView.TabIndex = 2;
             // 
             // mcadLine1
             // 
@@ -222,17 +247,20 @@ namespace Dasp_WaveView
             this.mcadLine1.EndPindex = 0;
             this.mcadLine1.FontSize = 9;
             this.mcadLine1.Khz = 25600;
-            this.mcadLine1.Location = new System.Drawing.Point(0, 0);
+            this.mcadLine1.Location = new System.Drawing.Point(153, 220);
             this.mcadLine1.Name = "mcadLine1";
             this.mcadLine1.Remainder = 0;
+            this.mcadLine1.RightText = null;
+            this.mcadLine1.Rspan = 50;
             this.mcadLine1.sindex = 0;
-            this.mcadLine1.Size = new System.Drawing.Size(808, 109);
+            this.mcadLine1.Size = new System.Drawing.Size(652, 212);
             this.mcadLine1.SliceColor = System.Drawing.Color.Black;
             this.mcadLine1.SliceTextColor = System.Drawing.Color.Black;
             this.mcadLine1.StartPindex = 0;
             this.mcadLine1.TabIndex = 1;
             this.mcadLine1.TextColor = System.Drawing.Color.White;
             this.mcadLine1.Title = "";
+            this.mcadLine1.TopRemarkSpan = 50;
             this.mcadLine1.xGridSpan = 64;
             this.mcadLine1.xInterval = 1;
             this.mcadLine1.XSlice = 50F;
@@ -247,39 +275,20 @@ namespace Dasp_WaveView
             this.mcadLine1.YSpace = 0F;
             this.mcadLine1.ZeroL = 400;
             // 
-            // txtOut
-            // 
-            this.txtOut.Location = new System.Drawing.Point(351, 13);
-            this.txtOut.Name = "txtOut";
-            this.txtOut.Size = new System.Drawing.Size(239, 21);
-            this.txtOut.TabIndex = 37;
-            this.txtOut.Text = "84930f04-cd56-4cb7-a609-95ac668746fe";
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(640, 49);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(76, 32);
-            this.button6.TabIndex = 38;
-            this.button6.Text = "波形预览2";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
             // WaveView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(808, 256);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.panel2);
-            this.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ClientSize = new System.Drawing.Size(808, 435);
+            this.Controls.Add(this.tableLayPanel);
+            this.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.KeyPreview = true;
             this.Name = "WaveView";
             this.Text = "波形浏览";
             this.Load += new System.EventHandler(this.WaveView_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel1.ResumeLayout(false);
+            this.tableLayPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -288,11 +297,9 @@ namespace Dasp_WaveView
 
         private MCADLine mcadLine1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button btnOpenData;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox pointsperpage;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
@@ -303,5 +310,7 @@ namespace Dasp_WaveView
         private System.Windows.Forms.TextBox txtSerialID;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.TextBox txtOut;
+        private System.Windows.Forms.TableLayoutPanel tableLayPanel;
+        private System.Windows.Forms.TreeView treeView;
     }
 }
