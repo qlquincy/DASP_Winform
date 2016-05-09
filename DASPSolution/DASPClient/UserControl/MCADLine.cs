@@ -19,6 +19,16 @@ namespace Dasp
 	public class MCADLine : System.Windows.Forms.UserControl
     {
         #region 2016
+        public string[] RightText
+        {
+            set;
+            get;
+        }
+        public int Rspan
+        {
+            set { rspan = value; }
+            get { return rspan; }
+        }
         public int sindex
         {
             set;
@@ -523,7 +533,11 @@ namespace Dasp
         /// 绘制区上端预留标注区高度
         /// </summary>
         private int topremark = 50;
-        
+        public int TopRemarkSpan
+        {
+            set { topremark = value; }
+            get { return topremark; }
+        }
         /// <summary>
 		/// Y轴向网格尺寸间距，以像素为单位
 		/// </summary>
@@ -545,6 +559,7 @@ namespace Dasp
 		/// 右边留给注坐标的空间
 		/// </summary>
 		private int rspan = 50;
+        
 
         /// <summary>
         /// 左边留给注坐标的空间
@@ -1024,7 +1039,7 @@ namespace Dasp
             if (i < LVP[indexparts].DisplayLen()) //.DrawDatalstPara[0].Count)
             {
                 txtcontext = Convert.ToString(LVP[indexparts].videoValue[i].xTime) + " V:" + Convert.ToString(LVP[indexparts].videoValue[i].yN_Mss);
-                g.TranslateTransform(this.XSpace + this.lspan, SumHeght(indexparts) + 5); //平移图像(原点)
+                g.TranslateTransform(this.XSpace + this.lspan, SumHeght(indexparts) + 12); //平移图像(原点)
                 g.RotateTransform(YRotateAngle, MatrixOrder.Prepend); //旋转图像
                 g.DrawString(txtcontext, new Font("宋体", FontSize), new SolidBrush(clrTextColor /*SliceTextColor*/), 0, 0);
                 g.ResetTransform();
@@ -1183,6 +1198,26 @@ namespace Dasp
             get;
         }
         /// <summary>
+        /// 在右侧标注有关内容
+        /// </summary>
+        private void RemarLeftText()
+        {
+           
+           if (RightText != null)
+            // int  unitgridyvalue = Convert.ToInt32(this.YSliceEnd /(10* ynlen ))*10;//表示y轴上单位格表示的值
+            for (int i = 0; i < RightText.Length; i++)
+            {	//画网格虚线，从0轴线往上绘制				
+               
+                g.TranslateTransform(this.Width - this.rspan +5,  this.topremark + i *FontSize *2 - FontSize / 2); //标注右侧刻度线
+                g.RotateTransform(YRotateAngle, MatrixOrder.Prepend); //旋转图像
+                g.DrawString(RightText[i], new Font("宋体", FontSize), new SolidBrush(Color.Gold /*SliceTextColor*/), 0, 0);
+                g.ResetTransform();
+
+            }
+           
+
+        }
+        /// <summary>
         /// 绘制实施 刷新或启动时调用 
         /// </summary>
         public void DrawChart()
@@ -1197,6 +1232,7 @@ namespace Dasp
 
                 if (exd) //采用分区进行图形绘制
                 {
+                    RemarLeftText();
                     for (int i = 0; i < this.drawparts; i++)  //依次绘制各个分区的图形
                     {
                         bool br = false;
@@ -1313,10 +1349,10 @@ namespace Dasp
 
                 strSliceText = Convert.ToString(LVP[indexparts].yGridSnap * LVP[indexparts].y_ValuePerPixel * i);//标示网格线的刻度值
                 //strSliceText = Convert.ToString(unitgridyvalue * i);
-                g.TranslateTransform(this.Width - this.rspan, LVP[indexparts].y_zeroHeght + SumHeght(indexparts) - i * LVP[indexparts].yGridSnap - FontSize / 2); //标注右侧刻度线
-                g.RotateTransform(YRotateAngle, MatrixOrder.Prepend); //旋转图像
-                g.DrawString(strSliceText, new Font("宋体", FontSize), new SolidBrush(Color.Gold /*SliceTextColor*/), 0, 0);
-                g.ResetTransform();
+                //g.TranslateTransform(this.Width - this.rspan, LVP[indexparts].y_zeroHeght + SumHeght(indexparts) - i * LVP[indexparts].yGridSnap - FontSize / 2); //标注右侧刻度线
+                //g.RotateTransform(YRotateAngle, MatrixOrder.Prepend); //旋转图像
+                //g.DrawString(strSliceText, new Font("宋体", FontSize), new SolidBrush(Color.Gold /*SliceTextColor*/), 0, 0);
+                //g.ResetTransform();
                 g.TranslateTransform(this.XSpace, LVP[indexparts].y_zeroHeght + SumHeght(indexparts) - i * LVP[indexparts].yGridSnap - FontSize / 2); //标注左侧刻度线
                 g.RotateTransform(YRotateAngle, MatrixOrder.Prepend); //旋转图像
                 g.DrawString(strSliceText, new Font("宋体", FontSize), new SolidBrush(Color.Gold /*SliceTextColor*/), 0, 0);
@@ -1329,10 +1365,10 @@ namespace Dasp
                 g.DrawLine(penDashed, this.lspan + innerbar, SumHeght(indexparts) + LVP[indexparts].y_zeroHeght + i * LVP[indexparts].yGridSnap, this.Width - this.rspan, SumHeght(indexparts) + LVP[indexparts].y_zeroHeght + i * LVP[indexparts].yGridSnap);
                 strSliceText = Convert.ToString(-LVP[indexparts].yGridSnap * LVP[indexparts].y_ValuePerPixel * i + 0);//当前轴线所表示的Y值：刻度数
                 // strSliceText = Convert.ToString(-unitgridyvalue * i);
-                g.TranslateTransform(this.Width - this.rspan, LVP[indexparts].y_zeroHeght + SumHeght(indexparts) + i * LVP[indexparts].yGridSnap - FontSize / 2); //平移图像(原点)
-                g.RotateTransform(YRotateAngle, MatrixOrder.Prepend); //旋转图像
-                g.DrawString(strSliceText, new Font("宋体", FontSize), new SolidBrush(Color.Gold /*SliceTextColor*/), 0, 0);
-                g.ResetTransform(); //重置图像 
+                //g.TranslateTransform(this.Width - this.rspan, LVP[indexparts].y_zeroHeght + SumHeght(indexparts) + i * LVP[indexparts].yGridSnap - FontSize / 2); //平移图像(原点)
+                //g.RotateTransform(YRotateAngle, MatrixOrder.Prepend); //旋转图像
+                //g.DrawString(strSliceText, new Font("宋体", FontSize), new SolidBrush(Color.Gold /*SliceTextColor*/), 0, 0);
+                //g.ResetTransform(); //重置图像 
 
                 g.TranslateTransform(this.XSpace, LVP[indexparts].y_zeroHeght + SumHeght(indexparts) + i * LVP[indexparts].yGridSnap - FontSize / 2); //平移图像(原点)
                 g.RotateTransform(YRotateAngle, MatrixOrder.Prepend); //旋转图像
@@ -1340,7 +1376,7 @@ namespace Dasp
                 g.ResetTransform(); //重置图像 
             }
             g.DrawLine(new Pen(BorderColor, 1), this.lspan + innerbar, SumHeght(indexparts) + this.innerbar + topremark, this.Width - this.rspan, SumHeght(indexparts) + this.innerbar + topremark);//画上部 
-            g.DrawLine(new Pen(BorderColor, 1), this.lspan + innerbar, SumHeght(indexparts) + LVP[indexparts].dHeight - bmspan, this.Width  - this.rspan, SumHeght(indexparts) + LVP[indexparts].dHeight - bmspan);//绘制底部横线
+            g.DrawLine(new Pen(BorderColor, 1), this.lspan + innerbar, SumHeght(indexparts) + LVP[indexparts].dHeight - bmspan, this.Width - this.rspan, SumHeght(indexparts) + LVP[indexparts].dHeight - bmspan);//绘制底部横线
             penDashed.Dispose();
         }
         /// <summary>
