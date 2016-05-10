@@ -14,5 +14,12 @@ namespace DASP.Business.Manager
            DASP.DataAccess.IDao.ITBFanPositionDao posDao = this.Dao as DASP.DataAccess.IDao.ITBFanPositionDao;
            return posDao.QueryForPager(pager);
         }
+
+
+        public IList<Domain.Entitys.TBFanPositionEntity> FindByTunnelId(Guid tunnelId)
+        {
+            DASP.DataAccess.IDao.ITBFanPositionDao posDao = this.Dao as DASP.DataAccess.IDao.ITBFanPositionDao;
+            return posDao.QueryByTunnelId(tunnelId);
+        }
     }
 }

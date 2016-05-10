@@ -8,5 +8,7 @@ namespace DASP.Business.IManager
     public interface ITBTestDataManager : IManagerBase<DASP.Domain.Entitys.TBTestDataEntity>
     {
         IList<Domain.Entitys.TBTestDataEntity> FindForPager(Domain.Common.Pager pager);
+
+        IList<Domain.Entitys.TBTestDataEntity> FindByPosId(Guid posId);
     }
 }

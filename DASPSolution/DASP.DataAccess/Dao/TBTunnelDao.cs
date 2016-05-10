@@ -19,8 +19,16 @@ namespace DASP.DataAccess.Dao
             hqlBuilder = new StringBuilder();
             hqlBuilder.Append("from TBTunnelEntity");
 
-            return this.Session.CreateQuery(hqlBuilder.ToString()).SetFirstResult((pager.PageIndex-1) * pager.PageSize)
+            return this.Session.CreateQuery(hqlBuilder.ToString()).SetFirstResult((pager.PageIndex - 1) * pager.PageSize)
                 .SetMaxResults(pager.PageSize).List<Domain.Entitys.TBTunnelEntity>();
+        }
+
+        public IList<Domain.Entitys.TBTunnelEntity> QueryByProjectId(Guid projectId)
+        {
+            StringBuilder hqlBuilder = new StringBuilder();
+            hqlBuilder.Append("from TBTunnelEntity where IsDeleted = false and Project.ProjectId = ? ");
+
+            return this.HibernateTemplate.Find<Domain.Entitys.TBTunnelEntity>(hqlBuilder.ToString(), projectId);
         }
     }
 }

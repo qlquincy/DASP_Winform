@@ -22,5 +22,13 @@ namespace DASP.DataAccess.Dao
             return this.Session.CreateQuery(hqlBuilder.ToString()).SetFirstResult((pager.PageIndex - 1) * pager.PageSize)
                 .SetMaxResults(pager.PageSize).List<Domain.Entitys.TBFanPositionEntity>();
         }
+
+        public IList<Domain.Entitys.TBFanPositionEntity> QueryByTunnelId(Guid tunnelId)
+        {
+            StringBuilder hqlBuilder = new StringBuilder();
+            hqlBuilder.Append("from TBFanPositionEntity where IsDeleted = false and Tunnel.TunnelId = ?");
+
+            return this.HibernateTemplate.Find<Domain.Entitys.TBFanPositionEntity>(hqlBuilder.ToString(),tunnelId);
+        }
     }
 }

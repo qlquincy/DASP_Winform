@@ -8,6 +8,8 @@ namespace DASP.DataAccess.IDao
 {
     public interface ITBTunnelDao
     {
-        IList<DASP.Domain.Entitys.TBTunnelEntity> QueryForPager(Pager pager); 
+        IList<DASP.Domain.Entitys.TBTunnelEntity> QueryForPager(Pager pager);
+
+        IList<DASP.Domain.Entitys.TBTunnelEntity> QueryByProjectId(Guid projectId);
     }
 }

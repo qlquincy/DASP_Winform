@@ -14,5 +14,11 @@ namespace DASP.Business.Manager
            ITBTestDataDao dataDao = this.Dao as ITBTestDataDao;
            return dataDao.QueryForPager(pager);
         }
+
+        public IList<Domain.Entitys.TBTestDataEntity> FindByPosId(Guid posId)
+        {
+            ITBTestDataDao dataDao = this.Dao as ITBTestDataDao;
+            return dataDao.QueryByPosId(posId);
+        }
     }
 }

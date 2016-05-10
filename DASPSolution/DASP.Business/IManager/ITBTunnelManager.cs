@@ -8,5 +8,7 @@ namespace DASP.Business.IManager
     public interface ITBTunnelManager : IManagerBase<DASP.Domain.Entitys.TBTunnelEntity>
     {
         IList<Domain.Entitys.TBTunnelEntity> FindForPager(Domain.Common.Pager pager);
+
+        IList<DASP.Domain.Entitys.TBTunnelEntity> FindByProjectId(Guid projectId);
     }
 }

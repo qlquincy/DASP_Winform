@@ -15,5 +15,12 @@ namespace DASP.Business.Manager
 
             return dataDao.QueryForPager(pager);
         }
+
+
+        public IList<Domain.Entitys.TBTunnelEntity> FindByProjectId(Guid projectId)
+        {
+            ITBTunnelDao dataDao = Dao as ITBTunnelDao;
+            return dataDao.QueryByProjectId(projectId);
+        }
     }
 }

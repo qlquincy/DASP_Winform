@@ -22,5 +22,14 @@ namespace DASP.DataAccess.Dao
             return this.Session.CreateQuery(hqlBuilder.ToString()).SetFirstResult((pager.PageIndex - 1) * pager.PageSize)
                 .SetMaxResults(pager.PageSize).List<Domain.Entitys.TBTestDataEntity>();
         }
+
+
+        public IList<Domain.Entitys.TBTestDataEntity> QueryByPosId(Guid posId)
+        {
+            StringBuilder hqlBuilder = new StringBuilder();
+            hqlBuilder.Append("from TBTestDataEntity where IsDeleted = false and Position.PositionId = ?");
+
+            return this.HibernateTemplate.Find<Domain.Entitys.TBTestDataEntity>(hqlBuilder.ToString(),posId);
+        }
     }
 }

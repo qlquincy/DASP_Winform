@@ -8,6 +8,8 @@ namespace DASP.DataAccess.IDao
 {
     public interface ITBFanPositionDao
     {
-        IList<DASP.Domain.Entitys.TBFanPositionEntity> QueryForPager(Pager pager); 
+        IList<DASP.Domain.Entitys.TBFanPositionEntity> QueryForPager(Pager pager);
+
+        IList<DASP.Domain.Entitys.TBFanPositionEntity> QueryByTunnelId(Guid tunnelId); 
     }
 }

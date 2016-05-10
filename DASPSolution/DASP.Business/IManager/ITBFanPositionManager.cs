@@ -8,5 +8,7 @@ namespace DASP.Business.IManager
     public interface ITBFanPositionManager : IManagerBase<DASP.Domain.Entitys.TBFanPositionEntity>
     {
         IList<Domain.Entitys.TBFanPositionEntity> FindForPager(Domain.Common.Pager pager);
+
+        IList<Domain.Entitys.TBFanPositionEntity> FindByTunnelId(Guid tunnelId);
     }
 }
