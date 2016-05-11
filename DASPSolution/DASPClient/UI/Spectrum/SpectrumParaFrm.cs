@@ -17,7 +17,7 @@ namespace Dasp_UI
 {
     public partial class SpectrumPara :  Form
     {
-        private List<float> indata;
+        public List<float> indata;
         private int nWavePtNum = 1024;
         private float fCalCv;
         private float fWaveSf;
@@ -141,6 +141,7 @@ namespace Dasp_UI
                 this.CalCv.Text = Convert.ToString(cv);
                 this.WavePtNum.Text = "1024";
                 this.WaveSf.Text = Convert.ToString(paraentity.SF);
+                indata = list;
                //  nWavePtNum = paraentity.
                 for (int i = 0; i < list.Count; i++)
                 {

@@ -429,7 +429,7 @@ namespace Dasp_UI
             this.mcadLine1.barDiffWidth = 4;
             this.mcadLine1.barWidth = 2;
             this.mcadLine1.BgColor = System.Drawing.Color.Black;
-            this.mcadLine1.BmSpan = 4;
+            this.mcadLine1.BmSpan = 30;
             this.mcadLine1.BorderColor = System.Drawing.Color.White;
             this.mcadLine1.ClrsCurveColors = System.Drawing.Color.Red;
             this.mcadLine1.ClrsCurveColorsb = System.Drawing.Color.Green;
@@ -445,8 +445,11 @@ namespace Dasp_UI
             this.mcadLine1.FontSize = 9;
             this.mcadLine1.Khz = 25600;
             this.mcadLine1.Location = new System.Drawing.Point(0, 0);
+            this.mcadLine1.Lspan = 35;
             this.mcadLine1.Name = "mcadLine1";
             this.mcadLine1.Remainder = 0;
+            this.mcadLine1.RightText = null;
+            this.mcadLine1.Rspan = 70;
             this.mcadLine1.sindex = 0;
             this.mcadLine1.Size = new System.Drawing.Size(808, 227);
             this.mcadLine1.SliceColor = System.Drawing.Color.Black;
@@ -455,6 +458,7 @@ namespace Dasp_UI
             this.mcadLine1.TabIndex = 1;
             this.mcadLine1.TextColor = System.Drawing.Color.White;
             this.mcadLine1.Title = "";
+            this.mcadLine1.TopRemarkSpan = 35;
             this.mcadLine1.xGridSpan = 64;
             this.mcadLine1.xInterval = 1;
             this.mcadLine1.XSlice = 50F;

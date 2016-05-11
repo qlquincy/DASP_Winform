@@ -112,6 +112,12 @@
     <Compile Include="UI\CommonModule\UCToolBar.Designer.cs">
       <DependentUpon>UCToolBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Compare\CmpFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Compare\CmpFrm.Designer.cs">
+      <DependentUpon>CmpFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\DataModule\EditFanPosFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -248,6 +254,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CommonModule\UCToolBar.resx">
       <DependentUpon>UCToolBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Compare\CmpFrm.resx">
+      <DependentUpon>CmpFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\DataModule\EditFanPosFrm.resx">
       <DependentUpon>EditFanPosFrm.cs</DependentUpon>

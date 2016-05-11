@@ -59,6 +59,7 @@
             this.tableLayPanelMiddle = new System.Windows.Forms.TableLayoutPanel();
             this.panelLeftColumn = new System.Windows.Forms.Panel();
             this.lblDisplayLoginInfo = new ZControls.ZLabelControl();
+            this.cmpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripTool.SuspendLayout();
             this.tableLayPanelMiddle.SuspendLayout();
             this.panelLeftColumn.SuspendLayout();
@@ -71,7 +72,8 @@
             this.dataToolStripMenuItem,
             this.timerToolStripMenuItem,
             this.saToolStripMenuItem,
-            this.tansiferToolStripMenuItem});
+            this.tansiferToolStripMenuItem,
+            this.cmpToolStripMenuItem});
             this.menuStripTool.Location = new System.Drawing.Point(0, 0);
             this.menuStripTool.Name = "menuStripTool";
             this.menuStripTool.Size = new System.Drawing.Size(920, 25);
@@ -263,6 +265,13 @@
             this.lblDisplayLoginInfo.TabIndex = 2;
             this.lblDisplayLoginInfo.Text = "当前登录用户为：{0}";
             // 
+            // cmpToolStripMenuItem
+            // 
+            this.cmpToolStripMenuItem.Name = "cmpToolStripMenuItem";
+            this.cmpToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.cmpToolStripMenuItem.Text = "比较分析";
+            this.cmpToolStripMenuItem.Click += new System.EventHandler(this.cmpToolStripMenuItem_Click);
+            // 
             // MainFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -306,6 +315,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayPanelMiddle;
         private System.Windows.Forms.Panel panelLeftColumn;
         private ZControls.ZLabelControl lblDisplayLoginInfo;
+        private System.Windows.Forms.ToolStripMenuItem cmpToolStripMenuItem;
 
 
     }

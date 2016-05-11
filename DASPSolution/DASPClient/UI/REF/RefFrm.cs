@@ -12,6 +12,7 @@ using WeifenLuo.WinFormsUI.Docking;
 using DASP.Business.IManager;
 using DASPClient.Utility;
 using DASP_UI;
+using DASPClient.Global;
 
 namespace Dasp_UI
 {
@@ -32,6 +33,7 @@ namespace Dasp_UI
         private string fileName2 = null;
         ITBTestDataManager testDataManager = null;
         ITBTestParameterManager testParameterManager = null;
+        private static object lockObject = new object();
 
         #region 自谱分析参数
         int nWaveOffset;
@@ -61,7 +63,48 @@ namespace Dasp_UI
             InitializeComponent();
             this.Load += new EventHandler(Spectrum_Load);
         }
+        /// <summary>  
+        /// 初始化ComboBoxTree  
+        /// </summary>  
+        private void InitTree()
+        {
+            NodeData rootNode = DASPClient.Global.Common.BuildCommonData();
+            if (null != rootNode)
+            {
+                TreeNode root = new TreeNode();
+                root.Text = rootNode.NodeName;
+                root.Name = rootNode.NodeId.ToString();
+                root.Tag = rootNode.Children;
 
+                //增加树的根节点  
+                treeView.Nodes.Add(root);
+                AddNode(root, root.Name);
+                root.ExpandAll();
+            }
+        }
+        /// <summary>  
+        /// 递规添加TreeView节点  
+        /// </summary>  
+        /// <param name="node"></param>  
+        /// <param name="parentID"></param>  
+        public void AddNode(TreeNode node, string parentID)
+        {
+            lock (lockObject)
+            {
+                List<NodeData> child = node.Tag as List<NodeData>;
+                if (null != child)
+                    foreach (NodeData c in child)
+                    {
+                        TreeNode subNode = new TreeNode();
+                        subNode.Text = c.NodeName;
+                        subNode.Name = c.NodeId.ToString();
+                        subNode.Tag = c.Children;
+
+                        node.Nodes.Add(subNode);
+                        AddNode(subNode, subNode.Name);
+                    }
+            }
+        }
 
         public REF(List<float> fname, List<float> fname2, FrfParas frfpara)
         {
@@ -74,7 +117,9 @@ namespace Dasp_UI
         }
         void Spectrum_Load(object sender, EventArgs e)
         {
-            GetWavData();
+           // GetWavData();
+            this.tableLayoutPanel.Dock = DockStyle.Fill;
+            InitTree();
         }
         private void GetWavData()
         {
@@ -162,6 +207,24 @@ namespace Dasp_UI
         private void cmb3_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnGetpara_Click(object sender, EventArgs e)
+        {
+          
+            FRFParaSetFrm frfParaSetFrm = new FRFParaSetFrm("84930f04-cd56-4cb7-a609-95ac668746fe", "f2d72bcb-88b2-4f93-af7a-0b10834848d9");
+           
+            frfParaSetFrm.FormClosed += (s, ea) =>
+            {
+                frf = frfParaSetFrm.frf;
+                indata = frfParaSetFrm.inlist;
+                outdata = frfParaSetFrm.outlist;
+            };
+            if (frfParaSetFrm.ShowDialog() == DialogResult.OK)
+            {
+                GetWavData();
+              
+            }
         }
 
 

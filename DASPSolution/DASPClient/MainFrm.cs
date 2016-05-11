@@ -148,38 +148,48 @@ namespace DASPClient
 
         private void saToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SpectrumParas spectrump = null;
-            SpectrumPara spectrumPara = new SpectrumPara("f2d72bcb-88b2-4f93-af7a-0b10834848d9");
-            spectrumPara.FormClosed += (s, ea) =>
-            {
-                spectrump = spectrumPara.spe;
-            };
-            if (spectrumPara.ShowDialog() == DialogResult.OK)
-            {
+            //SpectrumParas spectrump = null;
+            //SpectrumPara spectrumPara = new SpectrumPara("f2d72bcb-88b2-4f93-af7a-0b10834848d9");
+            //spectrumPara.FormClosed += (s, ea) =>
+            //{
+            //    spectrump = spectrumPara.spe;
+            //};
+            //if (spectrumPara.ShowDialog() == DialogResult.OK)
+            //{
 
-                SpecTrum specttum = new SpecTrum("f2d72bcb-88b2-4f93-af7a-0b10834848d9", spectrump);
-                specttum.Show(this.dockPanelContent);
-            }
+            //    SpecTrum specttum = new SpecTrum("f2d72bcb-88b2-4f93-af7a-0b10834848d9", spectrump);
+            //    specttum.Show(this.dockPanelContent);
+            //}
+            SpecTrum specttum = new SpecTrum();
+            specttum.Show(this.dockPanelContent);
         }
 
         private void tansiferToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrfParas frf = null;
-            FRFParaSetFrm frfParaSetFrm = new FRFParaSetFrm("84930f04-cd56-4cb7-a609-95ac668746fe", "f2d72bcb-88b2-4f93-af7a-0b10834848d9");
-            List<float> inlist = null;
-            List<float> outlist = null;
-            frfParaSetFrm.FormClosed += (s, ea) =>
-            {
-                frf = frfParaSetFrm.frf;
-                inlist = frfParaSetFrm.inlist;
-                outlist = frfParaSetFrm.outlist;
-            };
-            if (frfParaSetFrm.ShowDialog() == DialogResult.OK)
-            {
+            //FrfParas frf = null;
+            //FRFParaSetFrm frfParaSetFrm = new FRFParaSetFrm("84930f04-cd56-4cb7-a609-95ac668746fe", "f2d72bcb-88b2-4f93-af7a-0b10834848d9");
+            //List<float> inlist = null;
+            //List<float> outlist = null;
+            //frfParaSetFrm.FormClosed += (s, ea) =>
+            //{
+            //    frf = frfParaSetFrm.frf;
+            //    inlist = frfParaSetFrm.inlist;
+            //    outlist = frfParaSetFrm.outlist;
+            //};
+            //if (frfParaSetFrm.ShowDialog() == DialogResult.OK)
+            //{
 
-                REF refrm = new REF(inlist, outlist, frf);
-                refrm.Show(this.dockPanelContent);
-            }
+            //    REF refrm = new REF(inlist, outlist, frf);
+            //    refrm.Show(this.dockPanelContent);
+            //}
+            REF refrm = new REF();
+            refrm.Show(this.dockPanelContent);
+        }
+
+        private void cmpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CmpFrm cmpFrm = new CmpFrm();
+            cmpFrm.Show(this.dockPanelContent);
         } 
     }
 }
