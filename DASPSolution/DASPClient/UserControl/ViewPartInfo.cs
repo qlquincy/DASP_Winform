@@ -11,6 +11,22 @@ namespace Dasp
     /// </summary>
     public class ViewPartInfo
     {
+        /// <summary>
+        /// 绘制附加参数
+        /// </summary>
+        public DataBase dbase
+        {
+            set;
+            get;
+        }
+        /// <summary>
+        /// 占用区域比例
+        /// </summary>
+        public int percent
+        {
+            set;
+            get;
+        }
         public int Sindex = 0;
         /// <summary>
         /// -1表示全程计算
@@ -112,7 +128,25 @@ namespace Dasp
             set;
             get;
         }
-        public ViewPartInfo(int group)
+        public ViewPartInfo(int group, int _percent,DataBase Db)
+        {
+            DrawGroup = group;
+            xValueScale = Db.xScael;
+            usesym = true;
+            videoValue = new SortedList<int, VideoValue>();
+            if (group == 2)
+            {
+                videoValueb = new SortedList<int, VideoValue>();
+            }
+            percent = _percent;
+            dbase = Db;
+        }
+        public ViewPartInfo(int group,  DataBase Db):this(group,10,Db)
+        {
+           
+        }
+       
+        public ViewPartInfo(int group, int _percent)
         {
             DrawGroup = group;
             xValueScale = 1f;
@@ -122,11 +156,14 @@ namespace Dasp
             {
                 videoValueb = new SortedList<int, VideoValue>();
             }
+            percent = _percent;
+            dbase = new DataBase();
         }
-        public  ViewPartInfo():this(1)
+        public ViewPartInfo()
+            : this(1, 10)
         {
-           
-           
+
+
         }
         /// <summary>
         /// 数据分配情况

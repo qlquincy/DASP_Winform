@@ -12,6 +12,8 @@ using System.Collections.Generic;
 namespace Dasp
 {
 
+
+
     public delegate void UpdateMouseValue(int x,int y,float tim,float yvalue);
 	/// <summary>
 	/// 
@@ -19,6 +21,38 @@ namespace Dasp
 	public class MCADLine : System.Windows.Forms.UserControl
     {
         #region 2016
+        /// <summary>
+        /// 设置左边预留的标注空间
+        /// </summary>
+        public int Lspan
+        {
+            set { lspan = value; }
+            get { return lspan; }
+        }
+        /// <summary>
+        /// 设置分部绘制区域
+        /// </summary>
+        /// <param name="indextstart"></param>
+        /// <param name="len"></param>
+        /// <param name="indexpart"></param>
+        public void SetDrawAera(int indexpart,int indextstart,int len )
+        {
+            if ((LVP != null) && (indexpart < this.LVP.Count))
+            {
+                if (indextstart < LVP[indexpart].DrawDatalstPara[0].Count)
+                LVP[indexpart].Sindex = indextstart;
+
+                if (indextstart + len < LVP[indexpart].DrawDatalstPara[0].Count)
+                {
+                    LVP[indexpart].Eindex = indextstart + len - 1;
+                }
+                else
+                    LVP[indexpart].Eindex = -1;
+
+                this.Refresh();
+            }
+             
+        }
         public string[] RightText
         {
             set;
@@ -29,6 +63,7 @@ namespace Dasp
             set { rspan = value; }
             get { return rspan; }
         }
+        #region 不再使用
         public int sindex
         {
             set;
@@ -45,7 +80,7 @@ namespace Dasp
             drawlen = dcount;
             this.Refresh();
         }
-
+        #endregion 不再使用
         /// <summary>
         /// 当前控件分区绘制信息
         /// </summary>
@@ -65,6 +100,49 @@ namespace Dasp
         /// </summary>
         private void CalculatePartDrawHeight()
         {
+            // this.Heights.Clear();
+            if (LVP.Count != this.drawparts) //绘制区域数量发生改变
+            {
+                LVP.Clear();
+                ViewPartInfo viewPartInfo = null;
+                for (int i = 0; i < drawparts; i++)
+                {
+                    viewPartInfo = new ViewPartInfo();
+                    LVP.Add(viewPartInfo);
+                }
+            }
+            //int unith = this.Height / drawparts;
+            //int remand = this.Height % drawparts;
+
+            //for (int i = 0; i < remand; i++)
+            //{
+            ////    Heights.Add(unith + 1);
+            //    LVP[i].dHeight = unith + 1;
+            //   // Heights[i] = unith + 1;
+            //}
+            //for (int i = remand; i < drawparts; i++)
+            //{
+            //    LVP[i].dHeight = unith ;
+            // //   Heights.Add(unith);
+            //}
+            int m = 0;
+            for (int i = 0; i < drawparts; i++)
+            {
+                m = m + LVP[i].percent;
+            }
+            float unith = 1f * this.Height / m;
+
+            for (int i = 0; i < drawparts; i++)
+            {
+                LVP[i].dHeight = Convert.ToInt32(unith * LVP[i].percent);
+                // Heights.Add(unith);
+            }
+        }
+        /// <summary>
+        /// 计算各分区的绘制高度,注意取整问题
+        /// </summary>
+        private void CalculatePartDrawHeight(IList<int> scape)
+        {
             this.Heights.Clear();
             if (LVP.Count != this.drawparts) //绘制区域数量发生改变
             {
@@ -76,21 +154,64 @@ namespace Dasp
                     LVP.Add(viewPartInfo);
                 }
             }
-            int unith = this.Height / drawparts;
-            int remand = this.Height % drawparts;
-           
-            for (int i = 0; i < remand; i++)
+            int m = 0;
+            for (int i = 0; i < drawparts; i++)
             {
-                Heights.Add(unith + 1);
-                LVP[i].dHeight = unith + 1;
-               // Heights[i] = unith + 1;
+                m = m + LVP[i].percent;
             }
-            for (int i = remand; i < drawparts; i++)
+            float unith = 1f * this.Height / m;
+
+            for (int i = 0; i < drawparts; i++)
             {
-                LVP[i].dHeight = unith ;
-                Heights.Add(unith);
+                LVP[i].dHeight = Convert.ToInt32(unith * LVP[i].percent);
+                // Heights.Add(unith);
             }
         }
+        /// <summary>
+        /// 设置所有的绘制数据,及占用绘制区域的空间比例
+        /// </summary>
+        /// <param name="datalsts"></param>
+        public void SetDrawDataAll(IList<IList<float>[]> datalsts, IList<int> scape)
+        {
+            int tmpparts = datalsts.Count;//获取绘制区域总数
+            DrawParts = tmpparts;//设置绘制区域数量
+            ViewPartInfo viewPartInfo = null;
+            LVP.Clear();
+            for (int i = 0; i < drawparts; i++)
+            {
+                viewPartInfo = new ViewPartInfo();
+                viewPartInfo.DrawDatalstPara = datalsts[i];//设置每部分区域的绘制数据
+                viewPartInfo.percent = scape[i];
+                LVP.Add(viewPartInfo);
+            }
+            CalculatePartDrawHeight();
+            exd = true;
+            this.Refresh();
+        }
+
+        /// <summary>
+        /// 设置所有的绘制数据,及占用绘制区域的空间比例
+        /// </summary>
+        /// <param name="datalsts"></param>
+        public void SetDrawDataAll(IList<IList<float>[]> datalsts, IList<int> scape, IList<DataBase> dbex)
+        {
+            int tmpparts = datalsts.Count;//获取绘制区域总数
+            DrawParts = tmpparts;//设置绘制区域数量
+            ViewPartInfo viewPartInfo = null;
+            LVP.Clear();
+            for (int i = 0; i < drawparts; i++)
+            {
+                viewPartInfo = new ViewPartInfo();
+                viewPartInfo.DrawDatalstPara = datalsts[i];//设置每部分区域的绘制数据
+                viewPartInfo.percent = scape[i];
+                viewPartInfo.dbase = dbex[i];
+                LVP.Add(viewPartInfo);
+            }
+            CalculatePartDrawHeight();
+            exd = true;
+            this.Refresh();
+        }
+
         /// <summary>
         /// 设置制定区域的绘制参数
         /// </summary>
@@ -398,10 +519,7 @@ namespace Dasp
             }
         }
       
-        /// <summary>
-        /// 正值与负值所占空间的比例
-        /// </summary>
-        private float pn = 1f;
+       
         /// <summary>
         /// 可显示的柱子数量
         /// </summary>
@@ -448,10 +566,7 @@ namespace Dasp
             return sc;
 
         }
-        /// <summary>
-        /// 当前图形需要表示的值范围
-        /// </summary>
-        private double dv;
+        
         /// <summary>
         /// 当前绘制区域可分辨的柱子数
         /// </summary>
@@ -478,34 +593,11 @@ namespace Dasp
                 fltYRotateAngle = value;
             }
         }
-        /// <summary>
-        /// 是否可以绘制
-        /// </summary>
-        /// <returns></returns>
-        //private bool canDraw()
-        //{
-        //    bool cdraw = true;
-        //    if (this.CurrentNumberOfValues < 2)
-        //        cdraw = false;
-        //    else if (this.Values == null)
-        //    {
-        //        cdraw = false;
-        //    } 
-        //    else if (this.Values .Length < 2)
-        //    {
-        //        cdraw = false;
-        //    }
-        //    return cdraw;
-        //}
        
         /// <summary>
         /// 零刻度线在画布中的高度
         /// </summary>
-        private int ZeroLeve = 400;
-        /// <summary>
-        /// Y轴方向上每个像素所表示的值
-        /// </summary>
-        private double perPitch;
+        private int ZeroLeve = 400;      
         /// <summary>
         /// X轴点间距（象素个数）
         /// </summary>
@@ -550,10 +642,7 @@ namespace Dasp
             set {Gridspan = value;}
             get { return Gridspan; }
         }       
-   		/// <summary>
-		/// 绘制总点数
-		/// </summary>
-        private int CurrentNumberOfValues = 0;
+   		
       
 		/// <summary>
 		/// 右边留给注坐标的空间
@@ -566,22 +655,7 @@ namespace Dasp
         /// </summary>
         private int lspan = 50;
 	
-        /////若想32*PerPitch  是一个整数需要调整  int just = int (32 * perPitch/100)
-        ///// <summary>
-        ///// 设置或获取当前图形所要表示的值范围，由此可以计算出Y轴方向上每个像素所代表的值。
-        ///// </summary>
-        //public double dValue 
-        //{ 
-        //    get
-        //    {
-        //        return dv;
-        //    } 
-        //    set 
-        //    {
-        //        dv = value;
-        //        perPitch = GetInt(dv ,(Height - bmspan - this.innerbar )) ;
-        //    }
-        //}
+       
         /// <summary>
         /// 保证Y轴的刻度是100的整数
         /// </summary>
@@ -1252,7 +1326,8 @@ namespace Dasp
                         }
                         else
                         {
-                            ReCalculateLVP(sindex, drawlen, i);
+                            ReCalculateLVP(LVP[i].Sindex,  LVP[i].DisplayLen(), i);
+                            //ReCalculateLVP(sindex, drawlen, i);
                             Fit_ext(i);
 
                             //if (drawall) //绘制所有点
@@ -1261,7 +1336,7 @@ namespace Dasp
                                 LVP[i].x_grids = (LVP[i].x_unitPoints * LVP[i].DisplayLen() / (this.Width - this.rspan - innerbar - this.lspan));
                                 LVP[i].xGridSnap = this.xGridSpan;
                                 DrawAllYAxis_ext(i);
-                                DrawAllXAxis_ext(i);
+                                DrawAllXAxis_ext(i);//正在
                                 DrawAllContent_ext(i);
                             //}
                         }
@@ -1375,6 +1450,15 @@ namespace Dasp
                 g.DrawString(strSliceText, new Font("宋体", FontSize), new SolidBrush(Color.Gold /*SliceTextColor*/), 0, 0);
                 g.ResetTransform(); //重置图像 
             }
+            #region 标注Y轴单位
+            strSliceText = Convert.ToString(LVP[indexparts].dbase.yName);//当前轴线所表示的Y值单位
+
+
+            g.TranslateTransform(this.XSpace + this.lspan, SumHeght(indexparts) + this.innerbar + topremark - FontSize - 2); //平移图像(原点)
+            g.RotateTransform(YRotateAngle, MatrixOrder.Prepend); //旋转图像
+            g.DrawString(strSliceText, new Font("宋体", FontSize), new SolidBrush(Color.Gold /*SliceTextColor*/), 0, 0);
+            g.ResetTransform(); 
+            #endregion //重置图像 
             g.DrawLine(new Pen(BorderColor, 1), this.lspan + innerbar, SumHeght(indexparts) + this.innerbar + topremark, this.Width - this.rspan, SumHeght(indexparts) + this.innerbar + topremark);//画上部 
             g.DrawLine(new Pen(BorderColor, 1), this.lspan + innerbar, SumHeght(indexparts) + LVP[indexparts].dHeight - bmspan, this.Width - this.rspan, SumHeght(indexparts) + LVP[indexparts].dHeight - bmspan);//绘制底部横线
             penDashed.Dispose();
@@ -1395,22 +1479,29 @@ namespace Dasp
             for (int i = 0; i <= xnum; i++)
             {
                 g.DrawLine(penDashed, innerbar + i * LVP[indexparts].xGridSnap + this.lspan, SumHeght(indexparts) + innerbar + topremark, innerbar + i * LVP[indexparts].xGridSnap + this.lspan, SumHeght(indexparts) + LVP[indexparts].dHeight - bmspan);
-                strSliceText =( LVP[indexparts].Sindex + (i * unittime)).ToString("f2");//当前轴线所表示的Y值：刻度数
+                strSliceText =( LVP[indexparts].Sindex + (i * unittime)).ToString("f2")  ;//当前轴线所表示的Y值：刻度数
                 //g.TranslateTransform(this.XSpace + i * this.xGridSpan, /*this.YSliceBegin*/ this.ZeroL); //平移图像(原点)
                 //g.RotateTransform(YRotateAngle, MatrixOrder.Prepend); //旋转图像
                 //g.DrawString(strSliceText, new Font("宋体", FontSize), new SolidBrush(Color.Red /*SliceTextColor*/), 0, 0);
                 //g.ResetTransform(); //重置图像 
 
-                g.TranslateTransform(this.XSpace + this.lspan + i * LVP[indexparts].xGridSnap, /*this.YSliceBegin*/SumHeght(indexparts) + LVP[indexparts].dHeight - 1 * bmspan); //平移图像(原点)
+                g.TranslateTransform(this.XSpace + this.lspan + i * LVP[indexparts].xGridSnap, SumHeght(indexparts) + LVP[indexparts].dHeight + FontSize/2  - bmspan); //平移图像(原点)
                 g.RotateTransform(YRotateAngle, MatrixOrder.Prepend); //旋转图像
                 g.DrawString(strSliceText, new Font("宋体", FontSize), new SolidBrush(clrTextColor /*SliceTextColor*/), 0, 0);
                 g.ResetTransform(); //重置图像 
             }
             if (this.Mousex != -1)
             {
-                g.DrawLine(penDashed, this.Mousex, SumHeght(indexparts) + innerbar + this.topremark, this.Mousex, SumHeght(indexparts) + LVP[indexparts].dHeight - bmspan);
+                g.DrawLine(penDashed, this.Mousex, SumHeght(indexparts) + innerbar + this.topremark, this.Mousex, SumHeght(indexparts) + LVP[indexparts].dHeight -  bmspan );
                 this.DrawTopRemark(indexparts);
             }
+            #region 标注横轴坐标单位
+            strSliceText =  LVP[indexparts].dbase.xName;
+            g.TranslateTransform(this.Width - this.rspan, SumHeght(indexparts) + LVP[indexparts].dHeight - 1 * bmspan - FontSize); //平移图像(原点)
+            g.RotateTransform(YRotateAngle, MatrixOrder.Prepend); //旋转图像
+            g.DrawString(strSliceText, new Font("宋体", FontSize), new SolidBrush(clrTextColor /*SliceTextColor*/), 0, 0);
+            g.ResetTransform();
+            #endregion
             g.DrawLine(new Pen(BorderColor, 1), this.Width - this.rspan, SumHeght(indexparts) + innerbar + topremark, this.Width - this.rspan, SumHeght(indexparts) + LVP[indexparts].dHeight - bmspan);
             g.DrawLine(new Pen(BorderColor, 1), innerbar + this.lspan, SumHeght(indexparts) + innerbar + topremark, innerbar + this.lspan, SumHeght(indexparts) + LVP[indexparts].dHeight - bmspan);
             penDashed.Dispose();
@@ -1691,6 +1782,8 @@ namespace Dasp
             }
             if (bm)
             {
+
+
                 if (exd)
                 {
                     if ((OldMouseX >= XSpace + this.lspan) && (OldMouseX <= (this.Width - this.rspan)))
