@@ -216,6 +216,7 @@
     <Compile Include="UI\WaveView\WaveView.designer.cs">
       <DependentUpon>WaveView.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControl\DataBase.cs" />
     <Compile Include="UserControl\MCADLine.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -19,7 +19,7 @@ namespace DASPClient
         private UI.DataModule.TunnelManagerFrm tunnelFrm;
         private UI.DataModule.FanPositionManagerFrm fanPosFrm;
         private UI.DataModule.TestDataManagerFrm testDataFrm;
-        private DASPClient.UI.WaveView.WaveView waveView;
+        private Dasp_WaveView.WaveView waveView;
 
         private DASP.Domain.Entitys.TBUserEntity currentLoginUser;
 
@@ -141,7 +141,7 @@ namespace DASPClient
             }
             else
             {
-                waveView = new DASPClient.UI.WaveView.WaveView();
+                waveView = new Dasp_WaveView.WaveView();
                 waveView.Show(this.dockPanelContent);
             }
         }
