@@ -126,6 +126,10 @@ namespace Dasp_UI
             this.AverageType.SelectedIndex = 0;
             this.ClearDc.Checked = true;
         }
+        /// <summary>
+        /// 参数设置时的界面
+        /// </summary>
+        /// <param name="serialid"></param>
         private void DrawWaveFromDB(string serialid)
         {
             try
@@ -142,20 +146,23 @@ namespace Dasp_UI
                 this.WavePtNum.Text = "1024";
                 this.WaveSf.Text = Convert.ToString(paraentity.SF);
                 indata = list;
-               //  nWavePtNum = paraentity.
+                //  nWavePtNum = paraentity.
                 for (int i = 0; i < list.Count; i++)
                 {
                     list[i] = list[i] * gain / cv;
                 }
-                 IList<IList<float>[]> datalsts = new List<IList<float>[]>();
-                        IList<float>[] waveData = new IList<float>[1];//波形图只有一组绘制数据
-                        waveData[0] = list;// new List<float>();  //初始化第一组数据
-                        this.mcadLine1.DrawParts = 2;
-                        this.mcadLine1.BmSpan = 30;
-                        datalsts.Add(waveData);
-                        this.mcadLine1.drawall = true;
-                        this.mcadLine1.SetDrawDataAll(datalsts);
-                        this.mcadLine1.Focus();
+                IList<IList<float>[]> datalsts = new List<IList<float>[]>();
+                 IList<DataBase> dbex = new List<DataBase>();
+                DataBase db = new DataBase(1000f /Convert.ToSingle( paraentity.SF), "ms", 1f, paraentity.EU, "波形图全程预览");
+                IList<float>[] waveData = new IList<float>[1];//波形图只有一组绘制数据
+                waveData[0] = list;// new List<float>();  //初始化第一组数据
+                this.mcadLine1.DrawParts = 2;
+                this.mcadLine1.BmSpan = 30;
+                datalsts.Add(waveData);
+                 dbex.Add(db);
+                this.mcadLine1.drawall = true;
+                this.mcadLine1.SetDrawDataAll(datalsts,dbex);
+                this.mcadLine1.Focus();
             }
             catch (Exception ex)
             {

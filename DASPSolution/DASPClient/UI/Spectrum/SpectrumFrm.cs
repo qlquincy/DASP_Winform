@@ -119,12 +119,7 @@ namespace Dasp_UI
         {
             this.tableLayoutPanel.Dock = DockStyle.Fill;
             InitTree();
-            //this.mcadLine1.BgColor = Color.Black;
-           
-            //if (fileName != null)
-            //{
-            //   GetWavData(fileName);
-            //}
+           this.treeView.AfterSelect +=new TreeViewEventHandler(treeView_AfterSelect);
            
             
         }
@@ -164,10 +159,31 @@ namespace Dasp_UI
 
                 scape.Add(30);
                 scape.Add(70);
-
-                DataBase db = new DataBase(1 / sf, "s", 1f, "N");
+                 /// <summary>
+        /// 频谱类型 0 单峰值 1 有效值 2 功率谱 3PSD
+        /// </summary>
+        
+                DataBase db = new DataBase(1000f / sf, "ms", 1f, paraentity.EU);
                 dbex.Add(db);
-                db = new DataBase(sf / spepara.nFftPtNum, "Hz", 1f, "N");
+                switch (spepara.nSpectrumType)
+                {
+                    case 0:
+                        db = new DataBase(sf / spepara.nFftPtNum, "Hz", 1f, "(N)","单峰值");
+                        break;
+                    case 1:
+                        db = new DataBase(sf / spepara.nFftPtNum, "Hz", 1f, "(N)", "有效值");
+                        break;
+                    case 2:
+                        db = new DataBase(sf / spepara.nFftPtNum, "Hz", 1f, "(N)", "功率谱");
+                        break;
+                    case 3:
+                        db = new DataBase(sf / spepara.nFftPtNum, "Hz", 1f, "(N)", "PSD");
+                        break;
+                    default:
+                        db = new DataBase(sf / spepara.nFftPtNum, "Hz", 1f, "(N)", " ");
+                        break;
+                }
+               
                 dbex.Add(db);
 
                 this.mcadLine1.drawall = true;
@@ -214,17 +230,43 @@ namespace Dasp_UI
         private void btnGetpara_Click(object sender, EventArgs e)
         {
             List<float> indata = null;
-            SpectrumPara spectrumPara = new SpectrumPara("f2d72bcb-88b2-4f93-af7a-0b10834848d9");
-            spectrumPara.FormClosed += (s, ea) =>
+            if (string.IsNullOrEmpty(waverecid))
             {
-                spepara = spectrumPara.spe;
-                indata = spectrumPara.indata;
-            };
-            if (spectrumPara.ShowDialog() == DialogResult.OK)
+                SpectrumPara spectrumPara = new SpectrumPara(waverecid);
+                spectrumPara.FormClosed += (s, ea) =>
+                {
+                    spepara = spectrumPara.spe;
+                    indata = spectrumPara.indata;
+                };
+                if (spectrumPara.ShowDialog() == DialogResult.OK)
+                {
+                    GetSpectData(indata, waverecid);
+                   
+                }
+            }
+        }
+        private string waverecid = null;
+        private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            TreeNode _SelectNode = this.treeView.SelectedNode;
+            if (null != _SelectNode)
             {
-                GetSpectData(indata, "f2d72bcb-88b2-4f93-af7a-0b10834848d9");
-                //SpecTrum specttum = new SpecTrum("f2d72bcb-88b2-4f93-af7a-0b10834848d9", spectrump);
-                //specttum.Show(this.dockPanelContent);
+                string dataid = _SelectNode.Name;
+                waverecid = _SelectNode.Name;
+                //DrawWaveFromDB(dataid);
+                List<float> indata = null;
+                SpectrumPara spectrumPara = new SpectrumPara(dataid);
+                spectrumPara.FormClosed += (s, ea) =>
+                {
+                    spepara = spectrumPara.spe;
+                    indata = spectrumPara.indata;
+                };
+                if (spectrumPara.ShowDialog() == DialogResult.OK)
+                {
+                    GetSpectData(indata, dataid);
+                    //SpecTrum specttum = new SpecTrum("f2d72bcb-88b2-4f93-af7a-0b10834848d9", spectrump);
+                    //specttum.Show(this.dockPanelContent);
+                }
             }
         }
 

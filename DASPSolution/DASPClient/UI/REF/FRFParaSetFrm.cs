@@ -70,6 +70,8 @@ namespace Dasp_UI
                 {
                     outlist[i] = outlist[i] * outparaentity.Gain / Convert.ToSingle(outparaentity.CV);
                 }
+                IList<int> scape = new List<int>();
+                IList<DataBase> dbex = new List<DataBase>();
                 IList<IList<float>[]> datalsts = new List<IList<float>[]>();
                 IList<float>[] waveData = new IList<float>[1];//波形图只有一组绘制数据
                 waveData[0] = inlist;// new List<float>();  //初始化第一组数据
@@ -79,11 +81,16 @@ namespace Dasp_UI
                 waveData[0] = outlist;
                 
                 datalsts.Add(waveData);
-
+                scape.Add(50);
+                scape.Add(50);
+                DataBase db = new DataBase(1000f / Convert.ToSingle(inparaentity.SF), "ms", 1f, inparaentity.EU, "输入信号波形全图");
+                dbex.Add(db);
+                db = new DataBase(1000f / Convert.ToSingle(outparaentity.SF), "ms", 1f, outparaentity.EU, "输出信号波形全图");
+                dbex.Add(db);
                 this.mcadLine1.DrawParts = 2;
                 this.mcadLine1.BmSpan = 30;
                 this.mcadLine1.drawall = true;
-                this.mcadLine1.SetDrawDataAll(datalsts);
+                this.mcadLine1.SetDrawDataAll(datalsts,scape,dbex);
                 this.mcadLine1.Focus();
             }
             catch (Exception ex)

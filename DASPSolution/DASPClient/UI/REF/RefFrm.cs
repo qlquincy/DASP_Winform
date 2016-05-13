@@ -56,6 +56,7 @@ namespace Dasp_UI
         {
             InitializeComponent();
             this.Load += new EventHandler(Spectrum_Load);
+            this.cmbout.SelectedIndex = 0;
         }
         public REF(string fname)
         {
@@ -105,7 +106,18 @@ namespace Dasp_UI
                     }
             }
         }
-
+        private string inobj = null;
+        private string outobj = null;
+        private string selobj = null;
+        private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+           
+            TreeNode _SelectNode = this.treeView.SelectedNode;
+            if (null != _SelectNode)
+            {
+                selobj = _SelectNode.Name;
+            }
+        }
         public REF(List<float> fname, List<float> fname2, FrfParas frfpara)
         {
             indata = fname;
@@ -121,27 +133,99 @@ namespace Dasp_UI
             this.tableLayoutPanel.Dock = DockStyle.Fill;
             InitTree();
         }
+        private void ToolStripObj_Click(object sender, EventArgs e)
+        {
+            ToolStripDropDownItem c = sender as System.Windows.Forms.ToolStripDropDownItem;
+            if (c.Name == this.ToolStripObj.Name)
+            {
+                if (!string.IsNullOrEmpty(this.selobj))
+                {
+                    this.inobj = this.selobj;
+                    this.txtin.Text = this.selobj;
+                }
+                //MessageBox.Show("设置比较源");
+            }
+            else if (c.Name == this.ToolStripRef.Name)
+            {
+                if (!string.IsNullOrEmpty(this.selobj))
+                {
+                    this.outobj = this.selobj;
+                    this.txtOut.Text = this.selobj;
+                }
+                //MessageBox.Show("设置参考");
+            }
+            this.selobj = null;
+        }
+        private List<float>[] rfroutdata = null;
         private void GetWavData()
         {
+            IList<int> scape = new List<int>();
+            IList<DataBase> dbex = new List<DataBase>();
             IList<IList<float>[]> datalsts = new List<IList<float>[]>();
             IList<float>[] waveData =  new IList<float>[1];//波形图只有一组绘制数据
            
             if (DaspSDK.CalFRF(indata, outdata, out lstFrf, frf.nWavePtNum, frf.nFftPtNum, frf.fWaveSfOut, frf.fWaveSfIn, frf.nWindowType, frf.nExpPara, frf.nWindowLL, frf.nWindowLR, frf.nClearDc, frf.nSpectrumType, frf.nCorePar, frf.nCascadePercent))
             {
-                waveData[0] = lstFrf[0];               
-                datalsts.Add(waveData);
+              
+                rfroutdata = lstFrf;
+                switch (cmbout.SelectedIndex)
+                {
+                    case 0://幅频 、相频0 1
+                        waveData = new IList<float>[1];
+                        waveData[0] = lstFrf[0];
+                        datalsts.Add(waveData);
+                        waveData = new IList<float>[1];
+                        waveData[0] = lstFrf[1];
+                        datalsts.Add(waveData);
+                        break;
+                    case 1://幅频 、相干0 2
+                        waveData = new IList<float>[1];
+                        waveData[0] = lstFrf[0];
+                        datalsts.Add(waveData);
+                        waveData = new IList<float>[1];
+                        waveData[0] = lstFrf[2];
+                        datalsts.Add(waveData);
+                        break;
+                    case 2://实部 、虚部3 4
+                        waveData = new IList<float>[1];
+                        waveData[0] = lstFrf[3];
+                        datalsts.Add(waveData);
+                        waveData = new IList<float>[1];
+                        waveData[0] = lstFrf[4];
+                        datalsts.Add(waveData);
+                        break;
+                    case 3: //输入自谱 、输出自谱 5 6
+                        waveData = new IList<float>[1];
+                        waveData[0] = lstFrf[5];
+                        datalsts.Add(waveData);
+                        waveData = new IList<float>[1];
+                        waveData[0] = lstFrf[6];
+                        datalsts.Add(waveData);
+                        break;
+                    case 4: //幅频 相频  相干0 1 2
+                        waveData = new IList<float>[1];
+                        waveData[0] = lstFrf[0];
+                        datalsts.Add(waveData);
+                        waveData = new IList<float>[1];
+                        waveData[0] = lstFrf[1];
+                        datalsts.Add(waveData);
+                        waveData = new IList<float>[1];
+                        waveData[0] = lstFrf[2];
+                        datalsts.Add(waveData);
+                        break;
 
-                waveData = new IList<float>[1];
-                waveData[0] = lstFrf[1];
-                datalsts.Add(waveData);
+                }
+              
 
-                waveData = new IList<float>[1];
-                waveData[0] = lstFrf[2];
-                datalsts.Add(waveData);
+                //waveData = new IList<float>[1];
+              
 
                
                 this.mcadLine1.BmSpan = 30;
                 this.mcadLine1.drawall = true;
+                scape.Add(50);
+                scape.Add(50);
+                scape.Add(50);
                 this.mcadLine1.SetDrawDataAll(datalsts);
                 this.mcadLine1.Focus();
             }
@@ -211,19 +295,134 @@ namespace Dasp_UI
 
         private void btnGetpara_Click(object sender, EventArgs e)
         {
-          
-            FRFParaSetFrm frfParaSetFrm = new FRFParaSetFrm("84930f04-cd56-4cb7-a609-95ac668746fe", "f2d72bcb-88b2-4f93-af7a-0b10834848d9");
-           
-            frfParaSetFrm.FormClosed += (s, ea) =>
+            if (!string.IsNullOrEmpty(this.inobj) && !string.IsNullOrEmpty(this.outobj))
             {
-                frf = frfParaSetFrm.frf;
-                indata = frfParaSetFrm.inlist;
-                outdata = frfParaSetFrm.outlist;
-            };
-            if (frfParaSetFrm.ShowDialog() == DialogResult.OK)
+
+                FRFParaSetFrm frfParaSetFrm = null; //new FRFParaSetFrm("84930f04-cd56-4cb7-a609-95ac668746fe", "f2d72bcb-88b2-4f93-af7a-0b10834848d9");
+                frfParaSetFrm = new FRFParaSetFrm(inobj, outobj);
+                frfParaSetFrm.FormClosed += (s, ea) =>
+                {
+                    frf = frfParaSetFrm.frf;
+                    indata = frfParaSetFrm.inlist;
+                    outdata = frfParaSetFrm.outlist;
+                };
+                if (frfParaSetFrm.ShowDialog() == DialogResult.OK)
+                {
+                    GetWavData();
+
+                }
+            }
+        }
+
+        private void treeView_MouseClick(object sender, MouseEventArgs e)
+        {
+            this.MenuStrp.Show(sender as Control, e.Location);
+        }
+
+        private void cmbout_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstFrf != null)
             {
-                GetWavData();
-              
+                IList<IList<float>[]> datalsts = new List<IList<float>[]>();
+                IList<float>[] waveData = new IList<float>[1];//波形图只有一组绘制数据
+                IList<int> scape = new List<int>();
+                IList<DataBase> dbex = new List<DataBase>();
+                {
+
+                    rfroutdata = lstFrf;
+                    DataBase db = null;
+                    switch (cmbout.SelectedIndex)
+                    {
+                        case 0://幅频 、相频0 1
+                            waveData = new IList<float>[1];
+                            waveData[0] = lstFrf[0];
+                            datalsts.Add(waveData);
+                            db = new DataBase(frf.fWaveSfOut / frf.nFftPtNum, "Hz", 1f, "m/ss/N", "幅值");
+                            dbex.Add(db);
+                            waveData = new IList<float>[1];
+                            waveData[0] = lstFrf[1];
+                            db = new DataBase(frf.fWaveSfOut / frf.nFftPtNum, "Hz", 1f, "。", "相位");
+                            dbex.Add(db);
+                            datalsts.Add(waveData);
+                             scape.Add(50);
+                            scape.Add(25);
+                            break;
+                        case 1://幅频 、相干0 2
+                            waveData = new IList<float>[1];
+                            waveData[0] = lstFrf[0];
+                            datalsts.Add(waveData);
+                            db = new DataBase(frf.fWaveSfOut / frf.nFftPtNum, "Hz", 1f, "m/ss/N", "幅值");
+                            dbex.Add(db);
+                            waveData = new IList<float>[1];
+                            waveData[0] = lstFrf[2];
+                            datalsts.Add(waveData);
+                            db = new DataBase(frf.fWaveSfOut / frf.nFftPtNum, "Hz", 1f, "。", "相干");
+                            dbex.Add(db);
+                             scape.Add(50);
+                            scape.Add(25);
+                            break;
+                        case 2://实部 、虚部3 4
+                            waveData = new IList<float>[1];
+                            waveData[0] = lstFrf[3];
+                            datalsts.Add(waveData);
+                            db = new DataBase(frf.fWaveSfOut / frf.nFftPtNum, "Hz", 1f, "m/ss/N", "实部");
+                            dbex.Add(db);
+                            waveData = new IList<float>[1];
+                            waveData[0] = lstFrf[4];
+                            datalsts.Add(waveData);
+                            db = new DataBase(frf.fWaveSfOut / frf.nFftPtNum, "Hz", 1f, "m/ss/N", "虚部");
+                            dbex.Add(db);
+                             scape.Add(50);
+                            scape.Add(25);
+                            break;
+                        case 3: //输入自谱 、输出自谱 5 6
+                            waveData = new IList<float>[1];
+                            waveData[0] = lstFrf[5];
+                            datalsts.Add(waveData);
+                            datalsts.Add(waveData);
+                            db = new DataBase(frf.fWaveSfOut / frf.nFftPtNum, "Hz", 1f, "（N）", "输入自谱");
+                            waveData = new IList<float>[1];
+                            waveData[0] = lstFrf[6];
+                            datalsts.Add(waveData);
+                            datalsts.Add(waveData);
+                            db = new DataBase(frf.fWaveSfOut / frf.nFftPtNum, "Hz", 1f, "（N）", "输出自谱");
+                             scape.Add(50);
+                            scape.Add(50);
+                            break;
+                        case 4: //幅频 相频  相干0 1 2
+                            waveData = new IList<float>[1];
+                            waveData[0] = lstFrf[0];
+                            datalsts.Add(waveData);
+                            db = new DataBase(frf.fWaveSfOut / frf.nFftPtNum, "Hz", 1f, "m/ss/N", "幅值");
+                            dbex.Add(db);
+                            waveData = new IList<float>[1];
+                            waveData[0] = lstFrf[1];
+                            datalsts.Add(waveData);
+                            db = new DataBase(frf.fWaveSfOut / frf.nFftPtNum, "Hz", 1f, "。", "相位");
+                            dbex.Add(db);
+                            waveData = new IList<float>[1];
+                            waveData[0] = lstFrf[2];
+                            datalsts.Add(waveData);
+                            db = new DataBase(frf.fWaveSfOut / frf.nFftPtNum, "Hz", 1f, "。", "相干");
+                            dbex.Add(db);
+                            scape.Add(50);
+                            scape.Add(25);
+                            scape.Add(25);
+                            break;
+
+                    }
+
+
+                    //waveData = new IList<float>[1];
+
+
+
+                    this.mcadLine1.BmSpan = 30;
+                    this.mcadLine1.drawall = true;
+
+                    this.mcadLine1.SetDrawDataAll(datalsts, scape, dbex);
+                    this.mcadLine1.Focus();
+                }
             }
         }
 

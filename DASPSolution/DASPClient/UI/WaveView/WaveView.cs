@@ -29,6 +29,7 @@ namespace Dasp_WaveView
             InitializeComponent();
             this.tableLayoutPanel.Dock = DockStyle.Fill;
             InitTree();
+            this.pointsperpage.SelectedIndex = 2;
         }
         /// <summary>  
         /// 初始化ComboBoxTree  
@@ -41,7 +42,7 @@ namespace Dasp_WaveView
                 TreeNode root = new TreeNode();
                 root.Text = rootNode.NodeName;
                 root.Name = rootNode.NodeId.ToString();
-                root.Tag = rootNode.Children;
+                root.Tag = rootNode .Children;
 
                 //增加树的根节点  
                 treeView.Nodes.Add(root);
@@ -173,6 +174,12 @@ namespace Dasp_WaveView
                 float gain = paraentity.Gain;
                 float cv = Convert.ToSingle(paraentity.CV);
                   float sf = Convert.ToSingle(paraentity.SF);
+
+                  WavePoints.Text = Convert.ToString(list.Count);
+                  FreqSampling.Text = Convert.ToString(sf);
+                  Gain.Text = Convert.ToString(paraentity.Gain);
+                  Cv.Text = Convert.ToString(paraentity.CV);
+                  zUnit.Text = paraentity.EU;
                //  nWavePtNum = paraentity.
                 for (int i = 0; i < list.Count; i++)
                 {
@@ -188,14 +195,45 @@ namespace Dasp_WaveView
                         datalsts.Add(waveData);
                         datalsts.Add(waveData);
 
-                        scape.Add(40);
-                        scape.Add(60);
+                        scape.Add(35);
+                        scape.Add(65);
 
-                        DataBase db = new DataBase(1 / sf, "s", 1f, "N");
+                        DataBase db = new DataBase(1000f / sf, "ms", 1f, paraentity.EU, "波形图全程预览");
                         dbex.Add(db);
+                        db = new DataBase(1000f / sf, "ms", 1f, paraentity.EU, "时域图 ");
                         dbex.Add(db);
                         //this.mcadLine1.drawall = true;
+
                         this.mcadLine1.SetDrawDataAll(datalsts,scape,dbex);
+                        switch (this.pointsperpage.SelectedIndex)
+                        {
+                            case 0:
+                                this.mcadLine1.SetDrawAera(1, 0, 128);
+                                break;
+                            case 1:
+                                this.mcadLine1.SetDrawAera(1, 0, 256);
+                                break;
+                            case 2:
+                                this.mcadLine1.SetDrawAera(1, 0, 512);
+                                break;
+                            case 3:
+                                this.mcadLine1.SetDrawAera(1, 0, 1024);
+                                break;
+                            case 4:
+                                this.mcadLine1.SetDrawAera(1, 0, 2048);
+                                break;
+                            case 5:
+                                this.mcadLine1.SetDrawAera(1, 0, 4096);
+                                break;
+                            case 6:
+                                this.mcadLine1.SetDrawAera(1, 0, 8192);
+                                break;
+                            default:
+                                //this.mcadLine1.PageNumberOfValue = -1;
+                                break;
+
+                        }
+                        this.mcadLine1.Focus();
                         this.mcadLine1.Focus();
             }
             catch (Exception ex)
@@ -274,6 +312,17 @@ namespace Dasp_WaveView
         private void button1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            TreeNode _SelectNode = this.treeView.SelectedNode;
+            
+            if (null != _SelectNode)
+            {
+                string dataid = _SelectNode.Name;
+                DrawWaveFromDB(dataid);
+            }
         }
     }
 }

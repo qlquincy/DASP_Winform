@@ -36,10 +36,6 @@ namespace Dasp_UI
             this.txtOut = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtSerialID = new System.Windows.Forms.TextBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.pointsperpage = new System.Windows.Forms.ComboBox();
             this.treeView = new System.Windows.Forms.TreeView();
@@ -120,10 +116,6 @@ namespace Dasp_UI
             this.panel1.Controls.Add(this.txtOut);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.txtSerialID);
-            this.panel1.Controls.Add(this.button4);
-            this.panel1.Controls.Add(this.button3);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.pointsperpage);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -134,7 +126,7 @@ namespace Dasp_UI
             // 
             // btnGetpara
             // 
-            this.btnGetpara.Location = new System.Drawing.Point(633, 12);
+            this.btnGetpara.Location = new System.Drawing.Point(738, 6);
             this.btnGetpara.Name = "btnGetpara";
             this.btnGetpara.Size = new System.Drawing.Size(86, 24);
             this.btnGetpara.TabIndex = 38;
@@ -167,46 +159,10 @@ namespace Dasp_UI
             this.txtSerialID.TabIndex = 34;
             this.txtSerialID.Text = "f2d72bcb-88b2-4f93-af7a-0b10834848d9";
             // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(217, 39);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(45, 26);
-            this.button4.TabIndex = 32;
-            this.button4.Text = "<";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(269, 39);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(45, 26);
-            this.button3.TabIndex = 31;
-            this.button3.Text = ">";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(336, 38);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(45, 26);
-            this.button2.TabIndex = 30;
-            this.button2.Text = ">>";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(166, 39);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(45, 26);
-            this.button1.TabIndex = 29;
-            this.button1.Text = "<<";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 46);
+            this.label2.Location = new System.Drawing.Point(596, 12);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 12);
             this.label2.TabIndex = 27;
@@ -224,7 +180,7 @@ namespace Dasp_UI
             "4096",
             "8192",
             "全部"});
-            this.pointsperpage.Location = new System.Drawing.Point(81, 42);
+            this.pointsperpage.Location = new System.Drawing.Point(655, 7);
             this.pointsperpage.Name = "pointsperpage";
             this.pointsperpage.Size = new System.Drawing.Size(70, 20);
             this.pointsperpage.TabIndex = 28;
@@ -262,10 +218,6 @@ namespace Dasp_UI
         private System.Windows.Forms.TextBox txtOut;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtSerialID;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox pointsperpage;
         private System.Windows.Forms.TreeView treeView;

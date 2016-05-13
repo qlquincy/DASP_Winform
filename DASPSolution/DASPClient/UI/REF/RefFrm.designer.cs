@@ -29,6 +29,7 @@ namespace Dasp_UI
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.mcadLine1 = new Dasp.MCADLine();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -36,7 +37,7 @@ namespace Dasp_UI
             this.cmbout = new System.Windows.Forms.ComboBox();
             this.txtOut = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtSerialID = new System.Windows.Forms.TextBox();
+            this.txtin = new System.Windows.Forms.TextBox();
             this.btnGetpara = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -45,8 +46,12 @@ namespace Dasp_UI
             this.label2 = new System.Windows.Forms.Label();
             this.pointsperpage = new System.Windows.Forms.ComboBox();
             this.treeView = new System.Windows.Forms.TreeView();
+            this.MenuStrp = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ToolStripObj = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripRef = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.MenuStrp.SuspendLayout();
             this.SuspendLayout();
             // 
             // mcadLine1
@@ -122,7 +127,7 @@ namespace Dasp_UI
             this.panel1.Controls.Add(this.cmbout);
             this.panel1.Controls.Add(this.txtOut);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.txtSerialID);
+            this.panel1.Controls.Add(this.txtin);
             this.panel1.Controls.Add(this.btnGetpara);
             this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.button3);
@@ -139,7 +144,7 @@ namespace Dasp_UI
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(419, 50);
+            this.label3.Location = new System.Drawing.Point(396, 48);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 12);
             this.label3.TabIndex = 39;
@@ -149,24 +154,20 @@ namespace Dasp_UI
             // 
             this.cmbout.FormattingEnabled = true;
             this.cmbout.Items.AddRange(new object[] {
-            "幅频 ",
-            "相频",
-            "相干",
-            "实部 ",
-            "虚部",
-            "输入自谱 ",
-            "输出自谱",
-            "相干幅频",
-            "幅频 相频",
-            "输入自谱 输出自谱",
+            "幅频 、相频",
+            "幅频 、相干",
+            "实部 、虚部",
+            "输入自谱 、输出自谱",
             "幅频 相频  相干"});
-            this.cmbout.Location = new System.Drawing.Point(478, 45);
+            this.cmbout.Location = new System.Drawing.Point(455, 44);
             this.cmbout.Name = "cmbout";
-            this.cmbout.Size = new System.Drawing.Size(70, 20);
+            this.cmbout.Size = new System.Drawing.Size(101, 20);
             this.cmbout.TabIndex = 38;
+            this.cmbout.SelectedIndexChanged += new System.EventHandler(this.cmbout_SelectedIndexChanged);
             // 
             // txtOut
             // 
+            this.txtOut.Enabled = false;
             this.txtOut.Location = new System.Drawing.Point(351, 13);
             this.txtOut.Name = "txtOut";
             this.txtOut.Size = new System.Drawing.Size(239, 21);
@@ -182,13 +183,14 @@ namespace Dasp_UI
             this.label1.TabIndex = 35;
             this.label1.Text = "试验序列号";
             // 
-            // txtSerialID
+            // txtin
             // 
-            this.txtSerialID.Location = new System.Drawing.Point(81, 15);
-            this.txtSerialID.Name = "txtSerialID";
-            this.txtSerialID.Size = new System.Drawing.Size(233, 21);
-            this.txtSerialID.TabIndex = 34;
-            this.txtSerialID.Text = "f2d72bcb-88b2-4f93-af7a-0b10834848d9";
+            this.txtin.Enabled = false;
+            this.txtin.Location = new System.Drawing.Point(81, 15);
+            this.txtin.Name = "txtin";
+            this.txtin.Size = new System.Drawing.Size(233, 21);
+            this.txtin.TabIndex = 34;
+            this.txtin.Text = "f2d72bcb-88b2-4f93-af7a-0b10834848d9";
             // 
             // btnGetpara
             // 
@@ -270,6 +272,30 @@ namespace Dasp_UI
             this.tableLayoutPanel.SetRowSpan(this.treeView, 2);
             this.treeView.Size = new System.Drawing.Size(144, 456);
             this.treeView.TabIndex = 2;
+            this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
+            this.treeView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.treeView_MouseClick);
+            // 
+            // MenuStrp
+            // 
+            this.MenuStrp.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripObj,
+            this.ToolStripRef});
+            this.MenuStrp.Name = "MenuStrp";
+            this.MenuStrp.Size = new System.Drawing.Size(149, 48);
+            // 
+            // ToolStripObj
+            // 
+            this.ToolStripObj.Name = "ToolStripObj";
+            this.ToolStripObj.Size = new System.Drawing.Size(148, 22);
+            this.ToolStripObj.Text = "设置输入信号";
+            this.ToolStripObj.Click += new System.EventHandler(this.ToolStripObj_Click);
+            // 
+            // ToolStripRef
+            // 
+            this.ToolStripRef.Name = "ToolStripRef";
+            this.ToolStripRef.Size = new System.Drawing.Size(148, 22);
+            this.ToolStripRef.Text = "设置输出信号";
+            this.ToolStripRef.Click += new System.EventHandler(this.ToolStripObj_Click);
             // 
             // REF
             // 
@@ -283,6 +309,7 @@ namespace Dasp_UI
             this.tableLayoutPanel.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.MenuStrp.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -294,7 +321,7 @@ namespace Dasp_UI
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox txtOut;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtSerialID;
+        private System.Windows.Forms.TextBox txtin;
         private System.Windows.Forms.Button btnGetpara;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
@@ -305,5 +332,8 @@ namespace Dasp_UI
         private System.Windows.Forms.TreeView treeView;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbout;
+        private System.Windows.Forms.ContextMenuStrip MenuStrp;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripObj;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripRef;
     }
 }
