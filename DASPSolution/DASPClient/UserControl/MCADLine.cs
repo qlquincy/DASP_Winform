@@ -188,7 +188,29 @@ namespace Dasp
             exd = true;
             this.Refresh();
         }
-
+        /// <summary>
+        /// 设置所有的绘制数据,及占用绘制区域的空间比例
+        /// </summary>
+        /// <param name="datalsts"></param>
+        public void SetDrawDataAll(IList<IList<float>[]> datalsts,  IList<DataBase> dbex)
+        {
+            int tmpparts = datalsts.Count;//获取绘制区域总数
+            DrawParts = tmpparts;//设置绘制区域数量
+            ViewPartInfo viewPartInfo = null;
+            LVP.Clear();
+            for (int i = 0; i < drawparts; i++)
+            {
+                viewPartInfo = new ViewPartInfo();
+                viewPartInfo.DrawDatalstPara = datalsts[i];//设置每部分区域的绘制数据
+               
+                viewPartInfo.dbase = dbex[i];
+                viewPartInfo.xValueScale = dbex[i].xScael;
+                LVP.Add(viewPartInfo);
+            }
+            CalculatePartDrawHeight();
+            exd = true;
+            this.Refresh();
+        }
         /// <summary>
         /// 设置所有的绘制数据,及占用绘制区域的空间比例
         /// </summary>
@@ -205,6 +227,7 @@ namespace Dasp
                 viewPartInfo.DrawDatalstPara = datalsts[i];//设置每部分区域的绘制数据
                 viewPartInfo.percent = scape[i];
                 viewPartInfo.dbase = dbex[i];
+                viewPartInfo.xValueScale = dbex[i].xScael;
                 LVP.Add(viewPartInfo);
             }
             CalculatePartDrawHeight();
@@ -1101,23 +1124,37 @@ namespace Dasp
             }
             if (this.Mousex != -1)
             {
-                g.DrawLine(penDashed, this.Mousex, SumHeght(indexparts) +innerbar + this.topremark, this.Mousex, SumHeght(indexparts) + LVP[indexparts].dHeight - bmspan);
+                g.DrawLine(penDashed, this.Mousex, SumHeght(indexparts) + innerbar + this.topremark, this.Mousex, SumHeght(indexparts) + LVP[indexparts].dHeight - bmspan);
                 this.DrawTopRemark(indexparts);
+            }
+            else
+            {
+                this.DrawTopNullRemark(indexparts);
             }
             penDashed.Dispose();
         }
         private void DrawTopRemark(int indexparts)
         {
-            string txtcontext = "";
+            string txtcontext = LVP[indexparts].dbase.Title + "  光标读数 = ";// "";
             int i =Convert.ToInt32( MouseLocation * LVP[indexparts].DisplayLen());//.DrawDatalstPara[0].Count);
             if (i < LVP[indexparts].DisplayLen()) //.DrawDatalstPara[0].Count)
             {
-                txtcontext = Convert.ToString(LVP[indexparts].videoValue[i].xTime) + " V:" + Convert.ToString(LVP[indexparts].videoValue[i].yN_Mss);
+                txtcontext+= Convert.ToString(LVP[indexparts].videoValue[i].xTime) + " V:" + Convert.ToString(LVP[indexparts].videoValue[i].yN_Mss);
                 g.TranslateTransform(this.XSpace + this.lspan, SumHeght(indexparts) + 12); //平移图像(原点)
                 g.RotateTransform(YRotateAngle, MatrixOrder.Prepend); //旋转图像
                 g.DrawString(txtcontext, new Font("宋体", FontSize), new SolidBrush(clrTextColor /*SliceTextColor*/), 0, 0);
                 g.ResetTransform();
             }
+        }
+        private void DrawTopNullRemark(int indexparts)
+        {
+            string txtcontext = LVP[indexparts].dbase.Title;// "";
+
+            g.TranslateTransform(this.XSpace + this.lspan, SumHeght(indexparts) + 12); //平移图像(原点)
+            g.RotateTransform(YRotateAngle, MatrixOrder.Prepend); //旋转图像
+            g.DrawString(txtcontext, new Font("宋体", FontSize), new SolidBrush(clrTextColor /*SliceTextColor*/), 0, 0);
+            g.ResetTransform();
+
         }
 	    /// <summary>
 	    /// 在分区中全屏绘制曲线
@@ -1333,7 +1370,7 @@ namespace Dasp
                             //if (drawall) //绘制所有点
                             //{Convert.ToInt32
                                 LVP[i].x_unitPoints = 1f * LVP[i].DisplayLen() / (this.Width - this.rspan - innerbar - this.lspan);  //单位像素表示的点数.
-                                LVP[i].x_grids = (LVP[i].x_unitPoints * LVP[i].DisplayLen() / (this.Width - this.rspan - innerbar - this.lspan));
+                                LVP[i].x_grids = this.xGridSpan * LVP[i].x_unitPoints;//* LVP[i].DisplayLen() / (this.Width - this.rspan - innerbar - this.lspan));
                                 LVP[i].xGridSnap = this.xGridSpan;
                                 DrawAllYAxis_ext(i);
                                 DrawAllXAxis_ext(i);//正在
@@ -1474,12 +1511,12 @@ namespace Dasp
             penDashed.DashPattern = dashValues;
             int xnum = (this.Width - this.rspan - this.lspan - innerbar) / LVP[indexparts].xGridSnap;// x轴向上可画的网格个数
             string strSliceText = string.Empty;
-           
-            float unittime = LVP[indexparts].x_grids * LVP[indexparts].xValueScale; //横轴单位网格表示的值
+
+            float unittime = LVP[indexparts].x_grids;// *LVP[indexparts].xValueScale; //横轴单位网格表示的值
             for (int i = 0; i <= xnum; i++)
             {
                 g.DrawLine(penDashed, innerbar + i * LVP[indexparts].xGridSnap + this.lspan, SumHeght(indexparts) + innerbar + topremark, innerbar + i * LVP[indexparts].xGridSnap + this.lspan, SumHeght(indexparts) + LVP[indexparts].dHeight - bmspan);
-                strSliceText =( LVP[indexparts].Sindex + (i * unittime)).ToString("f2")  ;//当前轴线所表示的Y值：刻度数
+                strSliceText = ((LVP[indexparts].Sindex + (i * unittime)) * LVP[indexparts].xValueScale).ToString("f2");//当前轴线所表示的Y值：刻度数
                 //g.TranslateTransform(this.XSpace + i * this.xGridSpan, /*this.YSliceBegin*/ this.ZeroL); //平移图像(原点)
                 //g.RotateTransform(YRotateAngle, MatrixOrder.Prepend); //旋转图像
                 //g.DrawString(strSliceText, new Font("宋体", FontSize), new SolidBrush(Color.Red /*SliceTextColor*/), 0, 0);
@@ -1494,6 +1531,10 @@ namespace Dasp
             {
                 g.DrawLine(penDashed, this.Mousex, SumHeght(indexparts) + innerbar + this.topremark, this.Mousex, SumHeght(indexparts) + LVP[indexparts].dHeight -  bmspan );
                 this.DrawTopRemark(indexparts);
+            }
+            else
+            {
+                this.DrawTopNullRemark(indexparts);
             }
             #region 标注横轴坐标单位
             strSliceText =  LVP[indexparts].dbase.xName;

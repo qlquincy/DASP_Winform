@@ -8,6 +8,14 @@ namespace Dasp
     public class DataBase
     {
        /// <summary>
+       /// 图形说明
+       /// </summary>
+        public string Title
+        {
+            set;
+            get;
+        }
+       /// <summary>
        /// 横轴单位比例
        /// 
        /// </summary>
@@ -46,9 +54,17 @@ namespace Dasp
             xName = xn;
             yScael = y;
             yName = yn;
-
+            Title = "波形图";
         }
-        public  DataBase():this(1f,"None",1f,"None")
+        public DataBase(float x, string xn, float y, string yn,string title)
+        {
+            xScael = x;
+            xName = xn;
+            yScael = y;
+            yName = yn;
+            Title = title;
+        }
+        public  DataBase():this(1f,"None",1f,"None","波形图")
         {
         }
     }
