@@ -353,9 +353,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="DaspSaApi.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="DaspSaApi.dll" />
     <Content Include="RC_GrandLocal.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
