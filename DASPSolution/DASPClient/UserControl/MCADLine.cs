@@ -1370,7 +1370,7 @@ namespace Dasp
                             //if (drawall) //绘制所有点
                             //{Convert.ToInt32
                                 LVP[i].x_unitPoints = 1f * LVP[i].DisplayLen() / (this.Width - this.rspan - innerbar - this.lspan);  //单位像素表示的点数.
-                                LVP[i].x_grids = this.xGridSpan * LVP[i].x_unitPoints;//* LVP[i].DisplayLen() / (this.Width - this.rspan - innerbar - this.lspan));
+                                LVP[i].x_grids = Convert.ToInt32(this.xGridSpan * LVP[i].x_unitPoints);//* LVP[i].DisplayLen() / (this.Width - this.rspan - innerbar - this.lspan));
                                 LVP[i].xGridSnap = this.xGridSpan;
                                 DrawAllYAxis_ext(i);
                                 DrawAllXAxis_ext(i);//正在
@@ -1400,6 +1400,63 @@ namespace Dasp
 
         }
         public void Fit_ext(int indexpart)
+        {
+            if ((LVP != null) && (indexpart < this.LVP.Count))
+            {
+
+                float fltMaxValue = LVP[indexpart].maxValue;
+                int tmph = innerbar + topremark;//只有负数情况
+                if (LVP[indexpart].dataStyle == DataStyle.nplusp)
+                {
+                    tmph = (int)((this.LVP[indexpart].dHeight - bmspan - innerbar - topremark) * fltMaxValue / (fltMaxValue - this.LVP[indexpart].minValue)) + innerbar + topremark;//计算该区域绘制零轴线高度
+                }
+                else if (LVP[indexpart].dataStyle == DataStyle.onlypos)
+                {
+                    tmph = this.LVP[indexpart].dHeight - bmspan;//只有正值出现，零刻度线在底部预留空隙之上
+                }
+                LVP[indexpart].y_zeroHeght = tmph;//计算该部分0线的高度值
+
+
+                float vau = LVP[indexpart].maxValue - LVP[indexpart].minValue;
+
+                int gridspan;
+                float uv;
+                float gv;
+                RangeRule(vau, this.Gridspan, this.LVP[indexpart].dHeight - bmspan - innerbar - topremark, out gridspan, out uv, out gv);
+                LVP[indexpart].yGridSnap = gridspan;
+                LVP[indexpart].y_ValuePerPixel = uv;
+                //if (LVP[indexpart].dataStyle == DataStyle.nplusp)  //在绘制空间中有正有负值情况下，确定网格的合理大小值
+                //{
+
+                //    int ynlentop = (LVP[indexpart].y_zeroHeght - 1 * this.innerbar - topremark) / this.Gridspan;//先计算系统默认网格高度情况下为y轴向上方向的网格个数
+                //    int ynlenbottom = (LVP[indexpart].dHeight - bmspan - LVP[indexpart].y_zeroHeght) / this.Gridspan;//负值区域可能的网格数量
+                //    int ynlen = Math.Min(ynlentop, ynlenbottom);
+                //    if (ynlen < 1)  //不足一个网格需要调整系统设定的网格大小
+                //    {
+                //        if (ynlen == ynlentop)  //以上部区域为准调整网格大小
+                //        {
+                //            LVP[indexpart].yGridSnap = LVP[indexpart].y_zeroHeght - 1 * this.innerbar - topremark;
+                //        }
+                //        else
+                //        {
+                //            LVP[indexpart].yGridSnap = LVP[indexpart].dHeight - bmspan - LVP[indexpart].y_zeroHeght;
+                //        }
+                //        ynlen = 1;
+                //    }
+                //    else
+                //    {
+                //        LVP[indexpart].yGridSnap = this.Gridspan;
+                //    }
+
+                //    float f100 = GetSacle(Math.Max(Math.Abs(LVP[indexpart].maxValue), Math.Abs(LVP[indexpart].minValue)));
+
+                //    unitgridyvalue = Convert.ToInt32((Math.Max(Math.Abs(LVP[indexpart].maxValue), Math.Abs(LVP[indexpart].minValue)) / (f100 * ynlen)) * f100);//unitgridyvalue 表示y轴上单位标刻度线的值，此处表示归化为10的倍数
+
+                //    LVP[indexpart].y_ValuePerPixel = 1f * unitgridyvalue / LVP[indexpart].yGridSnap;  //计算出每个像素高所代表的值
+                //}
+            }
+        }
+        public void Fit_ext2(int indexpart)
         {
             if ((LVP != null) && (indexpart < this.LVP.Count))
             {
@@ -1546,6 +1603,34 @@ namespace Dasp
             g.DrawLine(new Pen(BorderColor, 1), this.Width - this.rspan, SumHeght(indexparts) + innerbar + topremark, this.Width - this.rspan, SumHeght(indexparts) + LVP[indexparts].dHeight - bmspan);
             g.DrawLine(new Pen(BorderColor, 1), innerbar + this.lspan, SumHeght(indexparts) + innerbar + topremark, innerbar + this.lspan, SumHeght(indexparts) + LVP[indexparts].dHeight - bmspan);
             penDashed.Dispose();
+        }
+        private bool RangeRule(float dv, int oldgridspan, int uihight, out int gridspan, out float unitvau, out float unitgridvau)
+        {
+            unitvau = dv / uihight; //初始单位像素所表示的值
+            unitgridvau = unitvau * oldgridspan;//单位坐标格所表示的值
+            if (uihight < 2 * oldgridspan)
+                oldgridspan = uihight * 50 / 100;
+            int m = Convert.ToInt32(unitgridvau / GetSacle(dv));//当前情况下
+            float nv = m * GetSacle(dv); //理想的单位坐标格所表示的值
+
+            if (nv > unitgridvau)
+            {  //能表示出所有的值
+                gridspan = oldgridspan;
+                unitgridvau = nv;
+                unitvau = nv / gridspan;
+            }
+            else
+            {
+                float gs = nv / unitgridvau;//
+                gridspan = Convert.ToInt32(oldgridspan * gs);
+                if (oldgridspan * gs < gridspan)
+                    gridspan -= 1;
+
+                unitvau = nv / gridspan;
+                unitgridvau = nv;
+               
+            }
+            return true;
         }
         /// <summary>
         /// 在分区中全屏绘制曲线
